@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--  Category for Blocking Reasons Workcenter -->
+        <record id="mrp.category_availability" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Availability</field>
+            <field name="loss_type">availability</field>
+        </record>
+        <record id="mrp.category_performance" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Low Performance</field>
+            <field name="loss_type">performance</field>
+        </record>
+        <record id="mrp.category_quality" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Quality Issues</field>
+            <field name="loss_type">quality</field>
+        </record>
+        <record id="mrp.category_productive" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Fully Productive</field>
+            <field name="loss_type">productive</field>
+        </record>
+
+    </data>
+
+</odoo>

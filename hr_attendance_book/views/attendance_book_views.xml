@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+    <act_window 
+    id="action_view_attendance_books" 
+    name="Attendance Books" 
+    res_model="hr.attendance.book"
+    context="{'search_default_group_by_month' : True}"
+    />
+
+    <menuitem
+        id="menu_attendance_book"
+        name="Attendance Books"
+        action="action_view_attendance_books" 
+        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        sequence="0"/>
+
+
+    <record id="attendance_book_view_search" model="ir.ui.view"> 
+        <field name="name">attendance.book.search</field> 
+        <field name="model">hr.attendance.book</field> 
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="year"/>
+                <filter string="This Month" domain="[('month', '=', context_today().month)]" name="current"/>
+                <filter name="group_by_month" string="By Month" context="{'group_by': 'month'}"/>
+                <filter name="group_by_employee" string="By Employee" context="{'group_by': 'employee_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="attendance_book_view_tree" model="ir.ui.view"> 
+        <field name="name">attendance.book.list</field> 
+        <field name="model">hr.attendance.book</field> 
+        <field name="arch" type="xml"> 
+            <tree decoration-danger="issues">
+                <field name="issues" invisible="1" />
+                <field name="year"/>
+                <field name="month"/>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="payroll_code"/>
+            </tree> 
+        </field> 
+    </record>
+
+    <record id="attendance_book_view_form" model="ir.ui.view"> 
+        <field name="name">attendance.book.form</field> 
+        <field name="model">hr.attendance.book</field> 
+        <field name="arch" type="xml"> 
+            <form string="Attendance Boook">
+                <header>
+                    <button name="load_all_invalids" type="object" class="btn-primary" string="Reload All Invalid Days"/>
+                    <button name="normalize_invalids" type="object" class="btn-primary" string="Normalize All Invalid Days"/>
+                    <button name="load_all" type="object" string="Reinitialize All Days"/>
+                    <button name="approve_all_extras" type="object" string="Approve All Extras"/>
+                </header>
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_days" string="Open Advanced View" type="object"
+                            icon="fa-plus-square"
+                            help="Opens the attendance days in a dedicated view." class="oe_stat_button"/>
+                </div>     
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Nome" readonly="True"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="year"/>
+                        <field name="month"/>
+                        <field name="employee_id"/>
+                    </group>
+                    <group string="Statistics">
+                        <field name="reason_ids" nolabel="1" context="{'book_id': id}">
+                            <tree>
+                                <field name="att_type"/>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="quantity" widget="float_time"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="days" string="Days">
+                        <field name="day_ids" nolabel="1">
+                            <tree editable="bottom"
+                            decoration-muted="not passed or (total_e == 0)"
+                            decoration-info="has_extra"
+                            decoration-warning="has_extra and not pay_extra"
+                            decoration-danger="issues"
+                            >
+                                <field name="passed" invisible="1" />
+                                <field name="issues" invisible="1" />
+                                <field name="has_extra" invisible="1" />
+                                <field name="day" string="N"/>
+                                <field name="dayofweek" string="G"/>
+                                <field name="resource_calendar_id" />
+                                <field name="reason_1" />
+                                <field name="qty_1" attrs="{'readonly': [('reason_1', '=', False)]}" widget="float_time"/>
+                                <field name="reason_2" />
+                                <field name="qty_2" attrs="{'readonly': [('reason_2', '=', False)]}" widget="float_time"/>
+                                <field name="reason_3" />
+                                <field name="qty_3" attrs="{'readonly': [('reason_3', '=', False)]}" widget="float_time"/>
+                                <field name="reason_4" />
+                                <field name="qty_4" attrs="{'readonly': [('reason_4', '=', False)]}" widget="float_time"/>
+                                <field name="total" widget="float_time"/>
+                                <field name="total_e" widget="float_time"/>
+                                <field name="pay_extra" string="Ext." widget="boolean_toggle"/>
+                                <button name="load_wnominal" type="object" icon="fa-check" aria-label="To Nominals" title="To Nominals"/>
+                                <button name="refresh_soft" type="object" icon="fa-refresh" aria-label="Reload Day" title="Reload Day"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="attendances" string="Check in/out">
+                        <field name="attendance_ids" nolabel="1">
+                            <tree>
+                                <field name="check_in" />
+                                <field name="check_out" />
+                                <field name="worked_hours" sum="Total" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="leaves" string="Leaves">
+                        <field name="leave_ids" nolabel="1"/>
+                    </page>
+                </notebook>
+            </form> 
+        </field>
+    </record>
+
+    <!--
+    *
+    *  Attendance Day
+    *
+    -->
+    <record id="attendance_day_view_search" model="ir.ui.view"> 
+        <field name="name">attendance.day.search</field> 
+        <field name="model">hr.attendance.day</field> 
+        <field name="arch" type="xml">
+            <search>
+                <field name="day"/>
+                <field name="dayofweek"/>
+                <filter name="issues" string="Has Issues" domain="[('issues', '=', True)]" />
+                <filter name="extras_to_review" string="Extras to Review" domain="[('has_extra', '=', True)]" context="{'group_by': 'pay_extra'}"/>
+                <filter name="group_by_workbook" string="By Workbook" context="{'group_by': 'workbook_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="attendance_day_view_tree" model="ir.ui.view"> 
+        <field name="name">attendance.day.list</field> 
+        <field name="model">hr.attendance.day</field>
+        <field name="arch" type="xml"> 
+            <tree create="false" editable="bottom">
+                <field name="workbook_id" invisible="1" />
+                <field name="passed" invisible="1" />
+                <field name="issues" invisible="1" />
+                <field name="day" />
+                <field name="dayofweek" />
+                <field name="reason_1" />
+                <field name="qty_1" widget="float_time"/>
+                <field name="reason_2" />
+                <field name="qty_2" widget="float_time"/>
+                <field name="reason_3" />
+                <field name="qty_3" widget="float_time"/>
+                <field name="reason_4" />
+                <field name="qty_4" widget="float_time"/>
+                <field name="total" widget="float_time"/>
+                <field name="total_e" widget="float_time"/>
+                <field name="pay_extra" widget="boolean_toggle" />
+            </tree> 
+        </field> 
+    </record>
+
+    <record id="attendance_day_view_form" model="ir.ui.view"> 
+        <field name="name">attendance.day.form</field> 
+        <field name="model">hr.attendance.day</field> 
+        <field name="arch" type="xml"> 
+            <form string="Attendance Boook">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="resource_calendar_id"/>
+                            <field name="structure_id"/>
+                            <br/>
+                            <field name="total" widget="float_time" class="oe_inline"/>
+                            <field name="total_e" widget="float_time" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="reason_1" widget="selection" class="oe_inline"/>
+                            <field name="qty_1" string="Quantity 1" widget="float_time" class="oe_inline" attrs="{'invisible': [('reason_1', '=', False)]}"/>
+                            <br/>
+                            <field name="reason_2" widget="selection" class="oe_inline"/>
+                            <field name="qty_2" string="Quantity 2" widget="float_time" class="oe_inline" attrs="{'invisible': [('reason_2', '=', False)]}"/>
+                            <br/>
+                            <field name="reason_3" widget="selection" class="oe_inline"/>
+                            <field name="qty_3" string="Quantity 3" widget="float_time" class="oe_inline" attrs="{'invisible': [('reason_3', '=', False)]}"/>
+                            <br/>
+                            <field name="reason_4" widget="selection" class="oe_inline"/>
+                            <field name="qty_4" string="Quantity 4" widget="float_time" class="oe_inline" attrs="{'invisible': [('reason_4', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attendances">
+                            <field name="attendance_ids" nolabel="1"/>
+                        </page>
+                        <page string="Leaves">
+                            <field name="leave_ids" nolabel="1"/>
+                        </page>
+                        <page string="Indexes">
+                            <group>
+                                <group>
+                                    <field name="bad_markings" widget="toggle_button"/>
+                                    <field name="short_lateness" widget="toggle_button"/>
+                                    <field name="long_lateness" widget="toggle_button"/>
+                                    <br/>
+                                    <field name="unadherence_index"/>
+                                    <field name="absence_index"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form> 
+        </field>
+    </record>
+
+    <!--
+    *
+    *  Attendance Type
+    *
+    -->
+
+    <record id="attendance_type_view_search" model="ir.ui.view"> 
+        <field name="name">attendance.type.search</field> 
+        <field name="model">hr.attendance.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="att_type"/>
+                <filter string="Attendance" domain="[('att_type', '=', 'work')]" name="work"/>
+                <filter string="Extra" domain="[('att_type', '=', 'extra')]" name="extra"/>
+                <filter string="Leave" domain="[('att_type', '=', 'hol')]" name="hol"/>
+                <filter string="Absence" domain="[('att_type', '=', 'absn')]" name="absn"/>
+                <filter name="group_by_type" string="By Type" context="{'group_by': 'att_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="attendance_type_view_tree" model="ir.ui.view"> 
+        <field name="name">attendance.type.list</field> 
+        <field name="model">hr.attendance.type</field> 
+        <field name="arch" type="xml"> 
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="att_type"/>
+            </tree> 
+        </field> 
+    </record>
+
+
+    <record id="attendance_type_view_form" model="ir.ui.view"> 
+        <field name="name">attendance.type.form</field> 
+        <field name="model">hr.attendance.type</field> 
+        <field name="arch" type="xml"> 
+            <form string="Attendance Boook">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="att_type"/>
+                    </group>
+                    <group>
+                        <field name="code"/>
+                    </group>
+                </group>
+            </form> 
+        </field>
+    </record>
+
+    <!--
+    *
+    *  Attendance Advantage
+    *
+    -->
+
+    <record id="attendance_adv_view_search" model="ir.ui.view"> 
+        <field name="name">attendance.adv.search</field> 
+        <field name="model">hr.attendance.structure</field> 
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="attendance_adv_view_tree" model="ir.ui.view"> 
+        <field name="name">attendance.adv.list</field> 
+        <field name="model">hr.attendance.structure</field> 
+        <field name="arch" type="xml"> 
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+            </tree> 
+        </field> 
+    </record>
+
+
+    <record id="attendance_adv_view_form" model="ir.ui.view"> 
+        <field name="name">attendance.adv.form</field> 
+        <field name="model">hr.attendance.structure</field> 
+        <field name="arch" type="xml"> 
+            <form string="Attendance Boook">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="tz"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="lines"/>
+                    </group>
+                </sheet>
+            </form> 
+        </field>
+    </record>
+
+    <!--
+    *
+    *  Attendance Advantage Lines
+    *
+    -->
+
+    <record id="attendance_advline_view_tree" model="ir.ui.view"> 
+        <field name="name">attendance.advline.list</field> 
+        <field name="model">hr.attendance.structure.line</field> 
+        <field name="arch" type="xml"> 
+            <tree>
+                <field name="time_start" widget="float_time"/>
+                <field name="time_end" widget="float_time"/>
+                <field name="reason_id"/>
+                <field name="reason_extra_id"/>
+            </tree> 
+        </field> 
+    </record>
+
+
+    <record id="attendance_advline_view_form" model="ir.ui.view"> 
+        <field name="name">attendance.advline.form</field> 
+        <field name="model">hr.attendance.structure.line</field> 
+        <field name="arch" type="xml"> 
+            <form string="Attendance Advantage">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="time_start" widget="float_time"/>
+                            <field name="time_end" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="reason_id"/>
+                            <field name="reason_extra_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form> 
+        </field>
+    </record>
+
+    <!-- Configuration Menus -->
+
+    <act_window 
+    id="action_view_attendance_types" 
+    name="Attendance Types" 
+    res_model="hr.attendance.type"
+    />
+
+    <menuitem
+        id="menu_attendance_type"
+        name="Attendance Types"
+        action="action_view_attendance_types" 
+        parent="hr_attendance.menu_hr_attendance_settings"
+        sequence="0"/>
+
+    <act_window 
+    id="action_view_attendance_structures" 
+    name="Attendance Structure" 
+    res_model="hr.attendance.structure"
+    />
+
+    <menuitem
+        id="menu_attendance_structures"
+        name="Attendance Structures"
+        action="action_view_attendance_structures" 
+        parent="hr_attendance.menu_hr_attendance_settings"
+        sequence="0"/>
+</odoo> 

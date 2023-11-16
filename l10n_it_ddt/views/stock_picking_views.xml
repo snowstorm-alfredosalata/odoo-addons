@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="view_picking_type_form">
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>    
+            <field name="arch" type="xml">
+                <field name="sequence_id" position="after">
+                    <field name="l10n_it_require_ddt"/>
+                    <field name="l10n_it_ddt_sequence_id" attrs="{'invisible': [('l10n_it_require_ddt', '=', True)]}"/>    
+                </field>
+            </field>
+        </record>
+
+
+        <record id="l10n_it_goods_description_tree" model="ir.ui.view">
+            <field name="name">l10n_it.goods_description.tree</field>
+            <field name="model">l10n_it.goods_description</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Goods Descriptions" editable="bottom">
+                    <field name="name"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_l10n_it_goods_description" model="ir.actions.act_window">
+            <field name="name">Goods Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n_it.goods_description</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="l10n_it_goods_description_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create some goods description items to be used in your DDTs.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem id="menu_l10n_it_ddt_config" name="Transport Documents" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="1"/>
+
+        <menuitem id="menu_l10n_it_goods_description" name="Goods Description Tempaltes" action="action_l10n_it_goods_description" parent="menu_l10n_it_ddt_config" sequence="1"/>
+
+</odoo>

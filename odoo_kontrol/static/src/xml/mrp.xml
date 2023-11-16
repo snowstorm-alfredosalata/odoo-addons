@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="ProductivityTimetable.buttons">
+        <div>
+            <button type="button" class="btn btn-primary" id="back"><i class="fa fa-arrow-left"></i></button>
+            <button type="button" class="btn btn-primary" id="week">Vista Settimana</button>
+            <button type="button" class="btn btn-primary" id="day">Vista Giornata</button>
+            <button type="button" class="btn btn-primary" id="forward"><i class="fa fa-arrow-right"></i></button>
+        </div>
+    </t>
+    <t t-name="ProductivityTimetable.nodata">
+        <div class="o_nocontent_help">
+            <p class="o_view_nocontent_empty_folder">
+                Nessun dato da visualizzare
+            </p>
+            <p>
+                Provare ad aggiungere alcuni record o controllare che non
+                    ci siano filtri attivi nella barra di ricerca.
+            </p>
+        </div>
+    </t>
+</templates>

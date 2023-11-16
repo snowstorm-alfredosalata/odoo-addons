@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <report id="report_bom_cost_xml"
+            model="mrp.bom"
+            string="Costi in XML"
+            name="rds_reports.bom_cost_xml"
+            file="rds_reports.bom_cost_xml"
+            report_type="qweb-text"
+        />
+    </data>
+</odoo>

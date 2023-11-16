@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="view_picking_type_form">
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>    
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_location_src_id']/.." position="after">
+                    <group string="Italian Localization"> 
+                        <field name="code" invisible="1"/>
+                        <field name="l10n_it_require_ddt"/>
+                        <field name="l10n_it_ddt_sequence_id" attrs="{'invisible': ['|', ('code','!=','outgoing'), ('l10n_it_require_ddt', '=', False)],
+                                                                      'required':  ['&amp;', ('code','=','outgoing'), ('l10n_it_require_ddt', '=', True)]}"/>
+                        <field name="l10n_it_transport_reason" attrs="{'invisible': [('l10n_it_require_ddt', '=', False)],
+                                                                      'required':  [('l10n_it_require_ddt', '=', True)]}"
+                                                                      widget="many2many_tags"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="l10n_it_goods_description_tree" model="ir.ui.view">
+            <field name="name">l10n_it.goods_description.tree</field>
+            <field name="model">l10n_it.goods_description</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Goods Descriptions" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_l10n_it_goods_description" model="ir.actions.act_window">
+            <field name="name">Goods Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n_it.goods_description</field>
+            <field name="view_id" ref="l10n_it_goods_description_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create some goods description items to be used in your DDTs.
+                </p>
+            </field>
+        </record>
+
+        <record id="l10n_it_transport_reason_tree" model="ir.ui.view">
+            <field name="name">l10n_it.ddt.reason.tree</field>
+            <field name="model">l10n_it.ddt.reason</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Transport Reason" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_l10n_it_transport_reason" model="ir.actions.act_window">
+            <field name="name">Transport Reasons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n_it.ddt.reason</field>
+            <field name="view_id" ref="l10n_it_transport_reason_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create some transport reason items to be used in your DDTs.
+                </p>
+            </field>
+        </record>
+    
+        <menuitem id="menu_l10n_it_ddt_config" name="Transport Documents" parent="stock.menu_stock_config_settings" groups="stock.group_stock_manager" sequence="1"/>
+        <menuitem id="menu_l10n_it_goods_description" name="Goods Description" action="action_l10n_it_goods_description" parent="menu_l10n_it_ddt_config" sequence="1"/>
+        <menuitem id="menu_l10n_it_transport_reason" name="Transport Reasons" action="action_l10n_it_transport_reason" parent="menu_l10n_it_ddt_config" sequence="2"/>
+
+        <record id="view_ddt_search" model="ir.ui.view">
+            <field name="name">ddt.search</field>
+            <field name="model">l10n_it.ddt</field>
+            <field name="arch" type="xml">
+                <search string="Picking Lists">
+                    <field name="name" string="Transfer" filter_domain="['|', ('name', 'ilike', self), ('partner_id', 'ilike', self)]"/>
+                    <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                    <field name="picking_type_id"/>
+                    <separator/>
+                    <filter name="done" string="Done" domain="[('state', '=', 'done')]" help="Completed Transport Documents"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Causale" name="reason" domain="[]" context="{'group_by': 'ddt_reason_id'}"/>
+                        <filter string="Destinazione" name="partner_shipping_id" domain="[]" context="{'group_by': 'partner_shipping_id'}"/>
+                        <filter string="Partner" name="partner_id" domain="[]" context="{'group_by': 'partner_id'}"/>                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="l10n_it_ddt_tree" model="ir.ui.view">
+            <field name="name">l10n_it.ddt.tree</field>
+            <field name="model">l10n_it.ddt</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Transport Documents" decoration-info="state == 'draft'" decoration-success="to_invoice">
+                    <field name="state" invisible="1"/>
+                    <field name="name" invisible="context.get('ddt_type', False) != 'outgoing'"/>
+                    <field name="partner_ddt_number" invisible="context.get('ddt_type', False) != 'incoming'"/>
+                    <field name="picking_type_id"/>
+                    <field name="partner_id"/>
+                    <field name="date"/>
+                    <field name="to_invoice" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="l10n_it_ddt_form" model="ir.ui.view">
+            <field name="name">l10n_it.ddt.form</field>
+            <field name="model">l10n_it.ddt</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <form string="Transfer">
+                <header>
+                    <button name="button_validate" attrs="{'invisible': [('state', '!=', 'draft')]}" string="Validate" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="button_lock" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('locked', '=', True)]}" string="Lock" type="object" groups="base.group_user"/>
+                    <button name="button_lock" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('locked', '=', False)]}" string="Unlock" type="object" groups="base.group_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    <button name="action_view_pickings" type="object" attrs="{'invisible': [('picking_ids_count', '=', 0)]}" class="oe_stat_button" icon="fa-truck">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value"><field name="picking_ids_count" widget="statinfo" nolabel="1"/></span>
+                            <span class="o_stat_text">Pickings</span>
+                        </div>
+                    </button>
+                    <button name="action_view_sales" type="object" attrs="{'invisible': [('sales_count', '=', 0)]}" class="oe_stat_button" icon="fa-money">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value"><field name="sales_count" widget="statinfo" nolabel="1"/></span>
+                            <span class="o_stat_text">Sales</span>
+                        </div>
+                    </button>
+                    </div>
+                    <h1>
+                        <field name="name" readonly="1" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('name','=','/')]}"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="locked" invisible="1"/>
+                            <field name="partner_ddt_number" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')], 'required': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_id" string="Addressee" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_id" string="Sender" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_id" required="1" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_id" string="Shipping Address" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_id" string="Shipped From" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_shipping_id" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_invoice_id" string="Invoice To" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_invoice_id" string="Invoiced From" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_invoice_id" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="picking_type_id" required="1" attrs="{'readonly' : ['|', ('picking_ids', '!=', []), ('state','!=','draft')]}"/>
+                            <field name="picking_type_code" invisible="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="carrier_type" required="1" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')],'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <field name="carrier_partner_id" attrs="{'invisible': [('carrier_type', '!=', 'other')], 'required': [('carrier_type', '=', 'other')], 'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="ddt_reason_id" widget="selection" required="1" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/> 
+                            <field name="goods_description_id" widget="selection" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')], 'required': [('picking_type_code', '=', 'outgoing')], 'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <label for="number_of_packages" groups="base.group_user" string="Packages" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <div class="o_row" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}">
+                                <field name="number_of_packages" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/>
+                                <span>weighing <field class="oe_inline" name="shipping_weight" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/></span> <span><field class="oe_inline" name="weight_uom_name"/> </span>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines" attrs="{'invisible': [('picking_ids','!=',[])]}">
+                            <field name="descriptive_lines" mode="tree,kanban" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                            <p>Manually created DDTs will not generate inventory moves and are not invoiceable. Please create a Sale Order and validate pickings to generate invoiceable DDTs.</p>
+                        </page>
+                        <page string="Pickings" attrs="{'invisible': [('picking_ids','=',[])]}">
+                            <field name="picking_ids" mode="tree,kanban" readonly='1' domain="[('state', '=', 'done')]"/>
+                        </page>
+                        <page string="Operations" attrs="{'invisible': [('picking_ids','=',[])]}">
+                            <field name="move_lines" mode="tree,kanban" readonly='1'/>
+                        </page>
+                        <page string="Notes">
+                            <group>
+                                <field name="note" nolabel="1" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/>
+                            </group>
+                            <group groups="base.group_multi_company">
+                                <group>
+                                    <field name="company_id" options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_l10n_it_ddt_out" model="ir.actions.act_window">
+            <field name="name">Transport Documents</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n_it.ddt</field>
+            <field name="view_id" ref="l10n_it_ddt_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_code', '=', 'outgoing')]</field>
+            <field name="context">{'ddt_type': 'outgoing'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Transport Documents are mandatory by Italian Law.
+                    They will be generated automatically as you make outgoing or incoming transfer operation which include any external location.
+                </p>
+            </field>
+        </record>
+        
+        <record id="action_l10n_it_ddt_in" model="ir.actions.act_window">
+            <field name="name">Transport Documents</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n_it.ddt</field>
+            <field name="view_id" ref="l10n_it_ddt_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_code', '=', 'incoming')]</field>
+            <field name="context">{'ddt_type': 'incoming'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Transport Documents are mandatory by Italian Law.
+                    They will be generated automatically as you make outgoing or incoming transfer operation which include any external location.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_l10n_it_ddt" name="Transport Documents" parent="stock.menu_stock_warehouse_mgmt" sequence="2"/>
+        <menuitem id="menu_l10n_it_ddt_out" name="Outgoing" action="action_l10n_it_ddt_out" parent="menu_l10n_it_ddt" sequence="2"/>
+        <menuitem id="menu_l10n_it_ddt_in" name="Incoming" action="action_l10n_it_ddt_in" parent="menu_l10n_it_ddt" sequence="4"/>
+
+        
+        <record id="view_picking_form_ddt" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="l10n_it_ddt_id" />
+                </field>
+            </field>
+        </record>
+        
+</odoo>

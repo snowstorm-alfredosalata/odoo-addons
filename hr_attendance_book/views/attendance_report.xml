@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+    <record id="view_hr_attendance_report_search" model="ir.ui.view">
+        <field name="name">hr.attendance.report.search</field>
+        <field name="model">hr.attendance.report</field>
+        <field name="arch" type="xml">
+            <search string="Attendance Analisys">
+                <field name="date"/>
+                <filter string="Date" name="year" invisible="1" date="date" default_period="this_year"/>
+                <filter name="work" string="Standard" domain="[('att_type','=','work')]"/>
+                <filter name="extra" string="Extras" domain="[('att_type','=','extra')]"/>
+                <filter name="hol" string="Holidays" domain="[('att_type','=','hol')]"/>
+                <filter name="absn" string="Absences" domain="[('att_type','=','absn')]"/>
+                <separator/>
+                <field name="att_type"/>
+                <field name="reason_id"/>
+                <field name="employee_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Employee" name="employee" context="{'group_by':'employee_id'}"/>
+                    <filter string="Type" name="type" context="{'group_by':'att_type'}"/>
+                    <filter string="Reason" name="reason" context="{'group_by':'reason_id'}"/>
+                    <separator/>
+                    <filter string="Date" name="date_month" context="{'group_by':'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="attendance_report_view_graph" model="ir.ui.view">
+            <field name="name">attendance.report.pivot</field>
+            <field name="model">hr.attendance.report</field>
+            <field name="arch" type="xml">
+                <graph string="Attendance Analisys" type="line">
+                    <field name="date" interval="day" type="row"/>
+                    <field name="reason_id" type="row"/>
+                    <field name="qty" type="measure"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="attendance_report_view_pivot" model="ir.ui.view">
+            <field name="name">attendance.report.pivot</field>
+            <field name="model">hr.attendance.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Attendance Analysis" disable_linking="True" display_quantity="true">
+                    <field name="reason_id" type="row"/>
+                    <field name="qty" type="measure"/>
+                </pivot>
+            </field>
+    </record>
+
+    <record id="attendance_report_action" model="ir.actions.act_window">
+        <field name="name">Attendance Analysis</field>
+        <field name="res_model">hr.attendance.report</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="view_hr_attendance_report_search"/>
+        <field name="context" eval="{'time_ranges': {'field':'date', 'range':'last_month'}}"/>
+    </record>
+
+    <menuitem id="menu_hr_attendance_report_moved" 
+              name="Raw Attendances" 
+              parent="hr_attendance.menu_hr_attendance_report" 
+              sequence="20" 
+              groups="hr_attendance.group_hr_attendance_user" 
+              action="hr_attendance.hr_attendance_action_graph"/>
+
+    <menuitem id="menu_hr_attendance_report_att_abs" 
+              name="Attendances/Absences" 
+              parent="hr_attendance.menu_hr_attendance_report" 
+              sequence="10" 
+              groups="hr_attendance.group_hr_attendance_user" 
+              action="attendance_report_action"/>
+
+</odoo> 

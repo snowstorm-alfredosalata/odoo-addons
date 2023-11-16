@@ -1,0 +1,132 @@
+.employee-card {
+    
+    width: 105mm;
+    height: 65mm;
+    display: block;
+    border: solid 1px black;
+    float: left;
+    margin: 4mm;
+    margin-right:10px;
+    page-break-inside: avoid
+
+    p1, p2, h2 {
+        display: inline-block;
+        width: 100%
+    }
+
+    p1 {
+        font-weight: 500;
+        margin-bottom: 32px;
+    }
+
+    p2 {
+        font-size: 18px;
+        font-weight: 900;
+        margin-bottom:0;
+    }
+
+    h2 {
+        font-weight: 900;
+        margin-top: 12px;
+        margin-bottom: 0px;
+    }
+
+    /** Body **/
+
+    .ecard-body {
+        height: 35mm;
+        width: 100%;
+        display: block;
+        background-color: rgb(132, 196, 255);
+    }
+    .emp-image {
+        width: 32%;
+        margin-left:5%;
+        height: 48mm;
+        float: left;
+        margin-top: -13mm;
+        border: solid 1mm rgb(132, 196, 255);
+        background-repeat: no-repeat;
+        background-size: 120%;
+        background-position: center center;
+    }
+    .emp-details {
+        margin-left:5%;
+        width:58%;
+        color: white;
+        text-align: left;
+        float: left;
+    }
+
+    .ecard-header {
+        height:15mm;
+        width:100%;
+        display: block;
+    }
+
+    .ecard-footer {
+        padding: 1mm;
+    }
+    .emp-barcode {
+        margin-top: 1mm;
+        width:62%;
+        float: right;
+    }
+    .emp-comlogo {
+        width:38%;
+        float: left;    
+    }
+
+    .emp-tag-icon {
+        height: 10mm;
+        float: right;
+        margin-top: 2.5mm;
+        margin-right: 2.5mm;
+    }
+
+
+    .color-1 {
+        border-color: #f06050!important;
+        background-color: #f06050!important;
+    }
+    .color-2 {
+        border-color: #f4a460!important;
+        background-color: #f4a460!important;
+    }
+    .color-3 {
+        border-color: #f7cd1f!important;
+        background-color: #f7cd1f!important;
+    }
+    .color-4 {
+        border-color: #6cc1ed!important;
+        background-color: #6cc1ed!important;
+    }
+    .color-5 {
+        border-color: #814968!important;
+        background-color: #814968!important;
+    }
+    .color-6 {
+        border-color: #eb7e7f!important;
+        background-color: #eb7e7f!important;
+    }
+    .color-7 {
+        border-color: #2c8397!important;
+        background-color: #2c8397!important;
+    }
+    .color-8 {
+        border-color: #475577!important;
+        background-color: #475577!important;
+    }
+    .color-9 {
+        border-color: #d6145f!important;
+        background-color: #d6145f!important;
+    }
+    .color-10 {
+        border-color: #30c381!important;
+        background-color: #30c381!important;
+    }
+    .color-11 {
+        border-color: #9365b8!important;
+        background-color: #9365b8!important;
+    }
+}

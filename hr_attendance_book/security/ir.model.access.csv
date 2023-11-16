@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_attbook,rule.usr.attbook,hr_attendance_book.model_hr_attendance_book,hr.group_hr_user,1,1,0,0
+user_attday,rule.usr.attday,hr_attendance_book.model_hr_attendance_day,hr.group_hr_user,1,1,0,0
+user_atttype,rule.usr.atttype,hr_attendance_book.model_hr_attendance_type,hr.group_hr_user,1,0,0,0
+user_attadv,rule.usr.attadv,hr_attendance_book.model_hr_attendance_structure,hr.group_hr_user,1,0,0,0
+user_attadvline,rule.usr.attadvline,hr_attendance_book.model_hr_attendance_structure_line,hr.group_hr_user,1,0,0,0
+mgr_atttype,rule.mgr.atttype,hr_attendance_book.model_hr_attendance_type,hr.group_hr_manager,1,1,1,1
+mgr_attadv,rule.mgr.attadv,hr_attendance_book.model_hr_attendance_structure,hr.group_hr_manager,1,1,1,1
+mgr_attadvline,rule.mgr.attadvline,hr_attendance_book.model_hr_attendance_structure_line,hr.group_hr_manager,1,1,1,1
+usr_attreport,rule.usr.attreport,hr_attendance_book.model_hr_attendance_report,hr.group_hr_user,1,0,0,0

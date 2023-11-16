@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="mrp_workorder_view_form_inherit_time_log_data_employee">
+        <field name="name">mrp.production.work.order.form.time.log.data</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="odoo_kontrol.mrp_workorder_view_form_inherit_time_log_data"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='worked_to']" position="after">
+                <field name="working_employee_id" attrs="{'invisible': [('worked_from','=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

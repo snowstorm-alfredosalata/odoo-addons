@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_shift,rule.usr.shif,hr_shifts.model_hr_shift,base.group_user,1,0,0,0
+user_shiftline,rule.usr.shiftline,hr_shifts.model_hr_shift_line,base.group_user,1,0,0,0
+hruser_shift,rule.hrusr.shif,hr_shifts.model_hr_shift,hr.group_hr_user,1,1,1,1
+hruser_shiftline,rule.hrusr.shiftline,hr_shifts.model_hr_shift_line,hr.group_hr_user,1,1,1,1

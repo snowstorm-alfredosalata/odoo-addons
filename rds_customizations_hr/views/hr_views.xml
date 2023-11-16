@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 
+        #
+        #   Added to make contract info lookup more intuitive to non hr personell.
+        #
+        -->
+
+        <record id="view_employee_form_contractinfo" model="ir.ui.view">
+            <field name="name">employee.form.contractinfo</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='resource_calendar_id']/../.." position="after">
+                    <group string="Contract Information">
+                        <div class="alert alert-warning" role="status" colspan="2" attrs="{'invisible': [['first_employed', '!=', False]]}"><strong>It's too bad.</strong><br/>There are no contracts for this worker. Add some to show contract information!</div>
+                        <field name="first_employed" attrs="{'invisible': [['first_employed', '=', False]]}"/>
+                        <field name="last_employed" attrs="{'invisible': [['last_employed', '=', False]]}"/>
+                        <field name="current_contract_start" attrs="{'invisible': [['current_contract_start', '=', False]]}"/>
+                        <field name="current_contract_end" attrs="{'invisible': [['current_contract_end', '=', False]]}"/>
+                        <field name="fixed_term" attrs="{'invisible': [['first_employed', '=', False]]}"/>
+                        <field name="is_subworker"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_filter_contractinfo" model="ir.ui.view">
+            <field name="name">employee.filter.contractinfo</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="priority" eval="2000"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <filter name="fixed_term" string="Fixed-Term Workers" domain="['&amp;', ('fixed_term','=',True), ('is_subworker','=',False)]"/>
+                    <filter name="nonfixed_term" string="Non-fixed Term Workers" domain="['&amp;', ('fixed_term','=',False), ('is_subworker','=',False)]"/>
+                    <filter name="subcontracted" string="Subcontracted Workers" domain="[('is_subworker','!=',False)]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- 
+        #
+        #   Image field in employee tags: used to flavour hr reports, employee badges etc
+        #
+        -->
+
+        <record id="view_employee_category_form_icon" model="ir.ui.view">
+            <field name="name">hr.employee.category.form.icon</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="icon" class="oe_avatar" options='{"preview_image":"image_medium"}'/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- 
+        #
+        #   Added to ease working hours configuration.
+        #
+        -->
+        <act_window 
+            id="open_ws_config" 
+            name="Working Schedules" 
+            res_model="resource.calendar" />
+
+        <menuitem
+            id="menu_ws_config"
+            name="Working Schedules"
+            action="open_ws_config"
+            parent="hr.menu_human_resources_configuration"
+            sequence="100"/>
+
+        <!-- 
+        #
+        #   Added to ease job positions configuration when hr_recruit is not installed. Can be removed if needed.
+        #
+        -->
+
+        <act_window 
+            id="open_aux_jobs_config" 
+            name="Jobs Positions" 
+            res_model="hr.job" />
+
+        <menuitem
+            id="menu_aux_jobs_config"
+            name="Jobs Positions"
+            action="open_aux_jobs_config" 
+            parent="hr.menu_human_resources_configuration"
+            sequence="10"/>
+
+    </data>
+</odoo>

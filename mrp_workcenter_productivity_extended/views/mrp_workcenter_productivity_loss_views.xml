@@ -1,0 +1,38 @@
+<odoo>  
+    <record id="oee_loss_tree_view_extended" model="ir.ui.view">
+        <field name="name">mrp.oee_loss_tree_view_extended</field>
+        <field name="inherit_id" ref="mrp.oee_loss_tree_view"/>
+        <field name="model">mrp.workcenter.productivity.loss</field>
+        <field name="arch" type="xml">
+            <field name="loss_type" position="replace">
+                <field name="loss_id"/>
+                <field name="loss_type" readonly="1"/>
+                <field name="graph_color" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_workcenter_productivity_loss_action">
+        <field name="name">Workcenter Log Reason</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workcenter.productivity.loss</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_empty_folder">
+            No Workcenter Log reason defined
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_config_mrp_productivity_config"
+        sequence="20"
+        name="Productivity Logs Config"
+        parent="mrp.menu_mrp_configuration"/>
+
+    <menuitem id="menu_config_mrp_productivity_loss"
+            sequence="20"
+            action="mrp_workcenter_productivity_loss_action"
+            name="Log Reasons"
+            parent="menu_config_mrp_productivity_config"/>
+
+</odoo>

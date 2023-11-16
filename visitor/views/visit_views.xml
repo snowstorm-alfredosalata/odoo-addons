@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+<act_window 
+  id="visit_action" 
+  name="Visite" 
+  res_model="visitor.visitor"
+  context="{'search_default_group_by_state' : True, 'search_default_active': True}"
+  />
+
+<!-- Top menu item -->
+<menuitem
+    id="visitor_menu_root"
+    name="Gestione Visite"
+    web_icon="visitor,static/description/icon.png"
+    action="visit_action" 
+    sequence="75"/>
+
+<record id="visit_view_form" model="ir.ui.view"> 
+  <field name="name">visitor.visitor.form</field> 
+  <field name="model">visitor.visitor</field> 
+  <field name="arch" type="xml"> 
+    <form string="Visite">
+      <header>
+      <button name="action_confirm" type="object" groups="visitor.group_visitor_manager" states="draft" string="Autorizza" />
+      <button name="action_start" type="object" string="Check In" states="confirm"/>
+      <button name="action_done" type="object" string="Check Out" states="start" />
+      <button name="action_cancel" type="object" groups="visitor.group_visitor_manager" states="draft,confirm,start" string="Cancella"/>
+        <field name="state" statusbar_visible="draft,confirm,start,done" widget="statusbar"/>
+      </header>
+      <sheet>
+        <div class="oe_title">
+            <label for="name" class="oe_edit_only"/>
+            <h1>
+                <field name="name" placeholder="Motivo della visita" required="True"/>
+            </h1>
+        </div>
+        <group>
+          <group> 
+              <field name="visitor_name"/>
+              <field name="visitor_company"/>
+              <field name="visitor_phone"/>
+          </group> 
+          <group> 
+              <field name="partner_id"/>
+              <br/>
+              <field name="date_planned"/>
+              <field name="accompanied_by"/>
+          </group>
+        </group>
+        <group strign="Check in &amp; Out" attrs="{'invisible': [('state', '=', 'draft')]}">
+          <group> 
+            <field name="check_in"/>
+          </group> 
+          <group>
+            <field name="check_out"/>
+          </group>
+        </group>
+        <field name="notes" placeholder="Altre informazioni ..." colspan="4"/>
+      </sheet>
+    </form> 
+  </field> 
+</record>
+
+<record id="visit_view_tree" model="ir.ui.view"> 
+  <field name="name">visitor.visitor.list</field> 
+  <field name="model">visitor.visitor</field> 
+  <field name="arch" type="xml"> 
+    <tree editable="bottom">
+      <field name="name"/>
+      <field name="visitor_name"/>
+      <field name="visitor_company"/>
+      <field name="visitor_phone"/>
+      <field name="accompanied_by"/>
+      <field name="date_planned"/>
+      <field name="check_in"/>
+      <field name="check_out"/>
+      <field name="state" invisible="1"/>
+      <button name="action_confirm" type="object" groups="visitor.group_visitor_manager"
+              icon="fa-check" aria-label="Confirm" states="draft" title="Confirm Visit"/>
+      <button name="action_start" type="object" 
+              icon="fa-play" aria-label="Check In" states="confirm,done" title="Check In"/>
+      <button name="action_done" type="object" 
+              icon="fa-stop" aria-label="Check Out" states="start" title="Check Out"/>
+      <button name="action_cancel" type="object" groups="visitor.group_visitor_manager" states="draft,confirm,start,done"
+              icon="fa-remove" aria-label="Cancel" title="Cancel"/>
+    </tree> 
+  </field> 
+</record>
+
+<record id="visit_view_search" model="ir.ui.view">
+  <field name="name">visitor.visitor.search</field>
+  <field name="model">visitor.visitor</field>
+  <field name="arch" type="xml">
+    <search string="Visite">
+      <field name="visitor_name"/>
+      <field name="check_in"/>
+      <filter string="Attivi" domain="[('state','not in',['cancel', 'expired'])]" name="active"/>
+      <filter string="In Corso" domain="[('state','=','start')]" name="checkin"/>
+      <filter string="Da Confermare" domain="[('state','=','draft')]" name="draft"/>
+            <group expand="0" string="Group By">
+                <filter name="group_by_state" string="State" context="{'group_by':'state'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+</odoo> 

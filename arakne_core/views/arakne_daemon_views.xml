@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Arakne Daemons -->
+    <record id="arakne_daemon_tree_view" model="ir.ui.view">
+        <field name="name">arakne.daemon.tree</field>
+        <field name="model">arakne.daemon</field>
+        <field name="arch" type="xml">
+            <tree string="Arakne Daemon">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="arakne_daemon_view_kanban" model="ir.ui.view">
+        <field name="name">arakne.daemon.kanban</field>
+        <field name="model">arakne.daemon</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="arakne_daemon_view" model="ir.ui.view">
+        <field name="name">arakne.daemon.form</field>
+        <field name="model">arakne.daemon</field>
+        <field name="arch" type="xml">
+            <form string="Arakne Daemon">
+                <header>
+                    <button name="button_ssh_check" string="Check SSH Connection" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="True"/>
+                            <field name="webapi_address" />
+                            <field name="ssh_address" />
+                            <field name="ssh_port" />
+                            <field name="ssh_user" />
+                            <field name="ssh_password" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_arakne_daemon_search" model="ir.ui.view">
+        <field name="name">arakne.daemon.search</field>
+        <field name="model">arakne.daemon</field>
+        <field name="arch" type="xml">
+            <search string="Search for mrp workcenter">
+                <field name="name" string="Arakne Daemon"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="arakne_daemon_action" model="ir.actions.act_window">
+        <field name="name">Arakne Daemons</field>
+        <field name="res_model">arakne.daemon</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="arakne_daemon_tree_view"/>
+        <field name="search_view_id" ref="view_arakne_daemon_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new Arakne Daemon
+            </p><p>
+            Manufacturing operations are processed at Arakne Daemons. A Arakne Daemon can be composed of
+            workers and/or machines, they are used for costing, scheduling, capacity planning, etc.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_arakne_daemon_overview"
+        action="arakne_daemon_action"
+        parent="menu_arakne_root"
+        sequence="10"/>
+
+</odoo>

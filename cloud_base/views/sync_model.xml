@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="sync_model_view_form" model="ir.ui.view" >
+        <field name="name">Models to sync</field>
+        <field name="model">sync.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="model_id"
+                               options="{'no_create_edit': 1, 'no_quick_create': 1}"
+                               required="1"
+                        />
+                        <field name="name"
+                               required="1"
+                        />
+                        <field name="model" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Filters">
+                            <div attrs="{'invisible': [('model_id', '=', False)]}">
+                                <label for="domain"/>
+                                <field name="domain"
+                                       widget="domain"
+                                       options="{'model': 'model'}"
+                                       style="min-height:200px !important;"
+                                />
+                            </div>
+                        </page>
+                        <page string="Periods" attrs="{'invisible': [('model_id', '=', False)]}">
+                            <field name="period_ids">
+                                <tree editable="1">
+                                    <field name="field_id"
+                                           domain="[
+                                                      ('model', '=', parent.model),
+                                                      ('ttype', 'in', ['date', 'datetime']),
+                                                   ]"
+                                           options="{'no_create_edit': 1, 'no_quick_create': 1}"
+                                    />
+                                    <field name="period_direction"/>
+                                    <field name="period_value"/>
+                                    <field name="period_type"/>
+                                    <field name="inclusive_this"/>
+                                    <field name="domain" invisible="1"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <field name="period_title"/>
+                                <field name="period_domain" invisible="1"/>
+                            </group>
+                            <p class="text-muted">
+                                Periods are calculated relatively to today, e.g. Today is 03/09/2020, it means that the 
+                                'last 2 months' are July and August. The 'next 5 days' are 04/09-08/09/2020.
+                            </p>
+                            <p class="text-muted">
+                                If the 'Current Included' flag is checked, the current period is also included. 
+                                E.g. today is 25/09/2020. We selected 'last 2 months'. If not checked, Odoo would 
+                                consider July and August. If checked, August and September.
+                            </p>
+                            <p class="text-muted">
+                                Restrictions of periods are accumulated. If you added a few lines, it means that all 
+                                periods conditions should be satisfied. E.g. deadline should be within the last 2 months
+                                <strong>AND</strong> close date should be within the last year.
+                                However, if you added the same date twice, condition should satisfy <strong>ANY</strong>
+                                of those criteria. E.g. deadline should be within the last 2 months <strong>OR</strong>
+                                the next month <strong>AND</strong> close date should be within the last year.
+                            </p>
+                        </page>
+                        <page string="Name Expression">
+                            <p class="text-muted">
+                                Introduce expression to extract folder name for object directories. To that end
+                                use Mako syntax (the same is used for Odoo email tempates). For example, ${object.name}.
+                            </p>
+                            <p class="text-muted">
+                                Leave it empty if you wanted to apply standard Odoo name_get method. The name_get method
+                                would be also used in case expression cannot be parsed or it has a syntax error.
+                            </p>
+                            <group>
+                                <field name="name_expression"/>
+                            </group>
+                        </page>
+                        <page string="Default folders" 
+                              attrs="{'invisible': ['|', ('model_id', '=', False), ('model', '=', 'ir.attachment')]}"
+                        >
+                            <group string="Default Folders"
+                                   attrs="{'invisible': ['|', ('model_id', '=', False), ('model', '=', 'ir.attachment')]}"
+                            />
+                            <field name="default_folders"
+                                   widget="jsTreeWidget"
+                                   attrs="{'invisible': ['|', ('model_id', '=', False), ('model', '=', 'ir.attachment')]}"
+                            />
+                            <p class="text-muted">
+                                Default folders are directories which are created during the very first sync of a document
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sync_model_view_tree" model="ir.ui.view">
+        <field name="name">Models to sync</field>
+        <field name="model">sync.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="model_id"/>
+                <field name="name"/>
+                <field name="model" invisible="1"/>
+                <field name="domain"/>
+                <field name="period_title"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

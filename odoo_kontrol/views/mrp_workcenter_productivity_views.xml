@@ -1,0 +1,123 @@
+<odoo>
+    <menuitem id="menu_config_mrp_productivity_config"
+        sequence="20"
+        name="OEE Tracking Configuration"
+        parent="mrp.menu_mrp_configuration"/>
+
+    <menuitem id="menu_config_mrp_productivity_loss"
+            sequence="20"
+            action="mrp.mrp_workcenter_productivity_loss_action"
+            name="Loss Reasons"
+            parent="menu_config_mrp_productivity_config"/>
+
+    
+    <record id="oee_loss_tree_view_extended" model="ir.ui.view">
+        <field name="name">mrp.oee_loss_tree_view_extended</field>
+        <field name="inherit_id" ref="mrp.oee_loss_tree_view"/>
+        <field name="model">mrp.workcenter.productivity.loss</field>
+        <field name="arch" type="xml">
+            <field name="loss_type" position="replace">
+                <field name="loss_id"/>
+                <field name="loss_type" string="Tipologia" readonly="1"/>
+                <field name="color" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="productivity_loss_type_tree" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.loss.type.tree</field>
+        <field name="model">mrp.workcenter.productivity.loss.type</field>
+        <field name="arch" type="xml">
+            <tree string="Workcenter Productivity Loss" editable='bottom'>
+                <field name="name"/>
+                <field name="loss_type"/>
+                <field name="color"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="productivity_loss_type_search" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.loss.search</field>
+        <field name="model">mrp.workcenter.productivity.loss.type</field>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="productivity_loss_type_action">
+        <field name="name">Productivity Losses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workcenter.productivity.loss.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_empty_folder">
+            No productivity loss defined
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_config_mrp_productivity_loss_type"
+        sequence="30"
+        action="productivity_loss_type_action"
+        name="Loss Reasons Categories"
+        parent="menu_config_mrp_productivity_config"/>
+
+    <record id="undefined_productivity_losses_tree" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.undefined.tree</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="arch" type="xml">
+            <tree string="Workcenter Productivity" editable="bottom">
+                <field name="date_start" readonly="1"/>
+                <field name="date_end" readonly="1"/>
+                <field name="workcenter_id" readonly="1"/>
+                <field name="workorder_id" readonly="1"/>
+                <field name="loss_id"/>
+                <field name="duration" string="Duration (minutes)" sum="Duration" widget="float_time" readonly="1"/>
+                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="oee_form_view_timestamps" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.form.timestamp</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_form_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="timestamp_ids" readonly="1">
+                    <tree>
+                        <field name="timestamp"/>
+                    </tree>
+                </field>
+            </field>
+
+            <field name="duration" position="after">
+                <field name="qty_produced" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mrp_undefined_productivity_losses">
+        <field name="name">Undefined Productivity Losses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workcenter.productivity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('loss_type', '=', 'undefined_loss')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('undefined_productivity_losses_tree')})]"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_empty_folder">
+            No productivity loss logged.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="mrp_undefined_productivity_losses"
+            sequence="40"
+            name="Undefined Productivity Losses"
+            action="action_mrp_undefined_productivity_losses"
+            parent="mrp.menu_mrp_reporting"/>
+</odoo>

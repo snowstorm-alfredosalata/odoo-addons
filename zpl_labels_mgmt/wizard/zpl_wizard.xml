@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="zpl_wizard_form" model="ir.ui.view">
+        <field name="name">Stampa Etichette</field>
+        <field name="model">zpl.wizard</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="from_res_model" invisible="1"/>
+                        <field name="from_res_id" invisible="1"/>
+                        <field name="printer_id" required="1"/>
+                        <field name="format_id" required="1"/>
+                        <field name="simplified" string="Modalità Semplificata"/>
+                        <field name="labels_qty" attrs="{'invisible': [('simplified', '=', False)]}" string="Numero di Etichette"/>
+                    </group>
+                    <group attrs="{'invisible': [('simplified', '=', True)]}">
+                        <group>
+                            <field name="labels_qty" attrs="{'invisible': [('combo_parameter', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="combo_parameter" domain="[('format_id', '=', format_id)]" string="Parametro Variabile"/>
+                        </group>
+                    </group>
+                    <notebook attrs="{'invisible': [('simplified', '=', True)]}">
+                        <page string="Parametro Combo" attrs="{'invisible': [('combo_parameter', '=', False)]}">
+                            <field name="combo_lines" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="value" string="Valore del Parametro Variabile"/>
+                                    <field name="labels_qty" string="Numero di Etichette"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Parametri Fissi">
+                          <field name="variable_ids" nolabel="1" create="0" delete="0">
+                                <tree editable="bottom">
+                                    <field name="key"/>
+                                    <field name="field_type" readonly="1"/>
+                                    <field name="value" attrs="{'readonly':  [('field_type','=','reference')]}"/>
+                                    <field name="ref_model" readonly="1"/>
+                                    <field name="ref" attrs="{'readonly':  [('field_type','!=','reference')]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="launch" string="Stampa Etichette" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_zpl_wizard" model="ir.actions.act_window">
+         <field name="name">Stampa Etichette</field>
+         <field name="res_model">zpl.wizard</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="zpl_wizard_form"/>
+         <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="documents_document_view_kanban" model="ir.ui.view">
+        <field name="name">documents.document.kanban.cloud</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_kanban"/>
+        <field name="arch" type="xml">
+            <field name="create_uid" position="after">
+                <field name="cloud_key"/>
+                <field name="attachment_id"/>
+            </field>
+            <!-- Synced files have attachment mimetype, not a link -->
+            <xpath expr="//div[hasclass('o_url_image')]" position="attributes">
+                <attribute name="t-elif">record.type.raw_value == 'url' and !record.cloud_key.raw_value</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_url_image')]" position="after">
+                <div t-elif="record.type.raw_value == 'url' and record.cloud_key.raw_value" 
+                     class="o_image o_image_thumbnail"
+                     t-att-data-mimetype="record.mimetype.value"
+                />
+            </xpath>
+            <!-- The link to download file directly from knaban-->
+            <a name="toggle_favorited" position="after">
+                <a name="action_donwload_cloud_file"
+                   type="object"
+                   t-if="record.type.raw_value == 'url' and record.cloud_key.raw_value and record.mimetype.raw_value != 'application/octet-stream' and record.mimetype.raw_value != 'special_cloud_folder'"
+                   class="fa fa-lg fa-cloud cloud_downloadable_docs"    
+                />
+            </a>
+            <!-- To forbid preview -->
+            <xpath expr="//div[contains(@t-attf-class, 'o_kanban_image_wrapper')]" position="attributes">
+                <attribute name="t-attf-class">
+                    o_kanban_image_wrapper #{(!record.cloud_key.raw_value and (webimage or binaryPreviewable or youtubeVideoToken)) ? 'oe_kanban_previewer' : ''}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//div[hasclass('o_kanban_record_body')]" position="attributes">
+                <attribute name="class">o_kanban_record_body cloud_base_kanban_body</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

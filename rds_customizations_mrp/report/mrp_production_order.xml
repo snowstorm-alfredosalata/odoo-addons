@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="mrp_report_routing" inherit_id="mrp.report_mrporder">
+        <xpath expr="//span[@t-field='o.product_qty']/.." position="after">
+            <div class="col-3">
+                <strong>Distinta / Stampo:</strong><br/>
+                <span t-field="o.bom_id.code"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

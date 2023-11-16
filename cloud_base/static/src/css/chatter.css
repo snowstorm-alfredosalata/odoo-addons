@@ -1,0 +1,34 @@
+.o_attachments_cloud_list {
+    margin: 0 5px 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+.cloud_attachment_content {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.cloud_attachment_name {
+    overflow: hidden;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+.cloud_attachment_name > a {
+    color: inherit;
+}
+.cloud_hover:hover {
+    color: black;
+}
+.o_attachment_download_from_cloud {
+    cursor: pointer;
+    font-size: 80%;
+}
+.o_attachment_view_cloud {
+    cursor: pointer;
+}
+.o_cloud_preview {
+    cursor: zoom-in;
+}

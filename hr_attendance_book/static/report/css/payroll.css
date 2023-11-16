@@ -1,0 +1,118 @@
+.payroll_events_h {
+    background-color: #ffffe6;
+}
+
+.payroll_events {
+    background-color: rgba(255, 255, 170, 0.50);
+}
+
+.tbody_payroll td {
+    font-size: 12px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: content-box;
+}
+.tbody_payroll tr {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: content-box;
+}
+
+.tbody_payroll li {
+    word-wrap: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tbody_payroll tr:nth-child(even) {background: rgba(240, 240, 240, 0.8)}
+.tbody_payroll tr:nth-child(odd) {background: rgba(255, 255, 255, 0.3)}
+
+.payroll_totals {
+    width: 40%
+}
+.payroll_totals td {
+    padding: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.payroll_totals th {
+    padding: 3px;
+    font-size: 12px!important;
+    line-height: 13px!important;
+}
+
+.hr-clear {
+    width: 100%;
+    clear: both;
+    height:0px;
+    display: block;
+}
+
+.payroll_footnotes {
+    float:left;
+    width: 36%;
+    margin: 0px;
+    padding-right: 2%;
+}
+
+.payroll_footnotes h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin:0px;
+    padding:0px;
+    margin-top:4px;
+    margin-bottom:2px;
+}
+
+.payroll_footnotes p {
+    font-size: 8px;
+    margin: 1px;
+    margin-left:0px;
+    padding: 0px;
+    text-justify: inter-word;
+    text-align: justify;
+}
+
+.payroll_header_type {
+    font-size: 18px;
+    color: rgb(70, 70, 90);
+    line-height: 32px;
+}
+
+.intv::after {
+    content: "";
+    height: 6px;
+    width: 6px;
+    background-color: #6c6c6c;
+    display: inline-block;
+    border-radius: 8px;
+    margin: 4px;
+    margin-top: 0;
+    margin-bottom: 1px;
+}
+
+.intv:last-child::after {
+    display: none;
+}
+
+.abs-1 {
+    color: rgb(0, 125, 40)
+}
+.abs-2 {
+    color: rgb(125, 0, 0)
+}
+
+.totintv.cumul-1::after {
+    font-weight: 700
+}
+
+.cumul-1 {
+    font-weight: 700
+}

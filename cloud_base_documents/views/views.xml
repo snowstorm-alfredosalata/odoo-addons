@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="Cloud Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link type="text/css" rel='stylesheet' href="/cloud_base_documents/static/src/css/cloud_documents.css"></link>
+            <script type="text/javascript" src="/cloud_base_documents/static/src/js/documents_kanban_controller.js"></script>
+            <script type="text/javascript" src="/cloud_base_documents/static/src/js/document_inspector.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

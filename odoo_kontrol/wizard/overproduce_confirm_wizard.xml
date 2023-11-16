@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!--  Change Product Quantity -->
+        <record id="view_workorder_overproduce_confirm_wizard" model="ir.ui.view">
+            <field name="name">Confirm and Close Order</field>
+            <field name="model">workorder.overproduce.confirm.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirm and Close Order">
+                    <div class="alert alert-warning">
+                      <p >
+                          You are declaring a quantity greater than o equal to the order residual.
+                          If the order is still continuing, <strong>immediately inform the production officer.</strong>
+                          This will close the workorder.
+  
+                          
+                      </p>
+                      <p/>
+                      <p><strong>Are you absolutely sure?</strong></p>
+                    </div>
+                    <footer>
+                        <button name="confirm" string="Close the Order"
+                            colspan="1" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>    

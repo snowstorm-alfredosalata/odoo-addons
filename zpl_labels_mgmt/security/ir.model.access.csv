@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zpl_printer_user,Label User,model_zpl_printer,stock.group_stock_user,1,0,0,0
+access_zpl_format_user,Label User,model_zpl_format,stock.group_stock_user,1,0,0,0
+access_zpl_printer_mgr,Label User,model_zpl_printer,stock.group_stock_manager,1,1,1,1
+access_zpl_format_mgr,Label User,model_zpl_format,stock.group_stock_manager,1,1,1,1
+access_zpl_variable_user,Label User,model_zpl_format_variable,stock.group_stock_user,1,0,0,0
+access_zpl_variable_mgr,Label User,model_zpl_format_variable,stock.group_stock_manager,1,1,1,1
+

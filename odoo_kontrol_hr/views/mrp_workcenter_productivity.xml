@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="oee_form_view_employee_id" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.form.employee</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="inherit_id" ref="mrp.oee_form_view"/>
+        <field name="arch" type="xml">
+            <field name="workcenter_id" position="after">
+                <field name="employee_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

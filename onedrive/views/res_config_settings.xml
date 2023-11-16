@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.onedrive</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="cloud_base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div name="cloud_base" position="attributes">
+                <attribute name="string">OneDrive</attribute>
+                <attribute name="data-key">onedrive</attribute>
+            </div>
+            <button name="action_reset" position="before">
+                <button name="action_login_to_onedrive"
+                        string="Login and Confirm"
+                        type="object"
+                        style="margin-left:5px"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('cloud_client_state', '=', 'confirmed')]}"
+                />
+                <button name="action_reconnect"
+                        type="object"
+                        attrs="{'invisible': [('cloud_client_state', 'in', ['draft', 'reconnect'])]}"
+                        style="margin-left:5px"
+                        string="Reconnect"
+                        help="The button would reset the configs without unlink from Onedrive. Use it
+                              when your token is expired"
+                />
+            </button>
+            <group name="client_specific" position="inside">
+                <field name="onedrive_client_id"
+                       attrs="{'readonly': [('cloud_client_state', '=', 'confirmed')]}"
+                />
+                <field name="onedrive_client_secret"
+                       attrs="{'readonly': [('cloud_client_state', '=', 'confirmed')]}"
+                       password="True"
+                />
+                <field name="onedrive_redirect_uri"
+                       attrs="{'readonly': [('cloud_client_state', '=', 'confirmed')]}"
+                />
+                <field name="onedrive_business"
+                       attrs="{'readonly': [('cloud_client_state', 'in', ['confirmed', 'reconnect'])]}"
+                />
+                <field name="onedrive_sharepoint_sites"
+                       attrs="{'invisible': [('onedrive_business', '=', False)], 'readonly': [('cloud_client_state', 'in', ['confirmed', 'reconnect'])]}"
+                />
+                <field name="onedrive_sharepoint_base_url"
+                       attrs="{'invisible': [('onedrive_sharepoint_sites', '=', False)], 'readonly': [('cloud_client_state', 'in', ['confirmed', 'reconnect'])]}"
+                       placeholder="https://company.sharepoint.com/"
+                />
+                <field name="onedrive_sharepoint_site_name"
+                       attrs="{'invisible': [('onedrive_sharepoint_sites', '=', False)], 'readonly': [('cloud_client_state', 'in', ['confirmed', 'reconnect'])]}"
+                       placeholder="sites/mycompany"
+                />
+                <field name="onedrive_sharepoint_drive"
+                       attrs="{'invisible': [('onedrive_sharepoint_sites', '=', False)], 'readonly': [('cloud_client_state', 'in', ['confirmed', 'reconnect'])]}"
+                       placeholder="Documents"
+                />
+            </group>
+        </field>
+    </record>
+
+    <record id="cloud_base.cloud_config_action" model="ir.actions.act_window">
+        <field name="context">{'module' : 'onedrive'}</field>
+        <field name="name">Settings</field>
+    </record>
+
+</odoo>

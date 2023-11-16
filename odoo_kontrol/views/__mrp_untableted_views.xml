@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_workorder_view_kanban_inherit_quality_untableted" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.kanban.inherit.quality</field>
+        <field name="model">mrp.workorder</field>
+        <field name="mode">primary</field>
+        <field name="priority">0</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_kanban_inherit_quality"/>
+        <field name="arch" type="xml">
+            <kanban position="attributes">
+                <attribute name="js_class"></attribute>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_view_tree_inherit_quality_untableted" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.tree.inherit.quality</field>
+        <field name="model">mrp.workorder</field>
+        <field name="mode">primary</field>
+        <field name="priority ">0</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_tree_inherit_quality"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="js_class"></attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_workcenter_view_kanban_inherit_workorder" model="ir.ui.view">
+        <field name="name">mrp.workcenter.view.kanban.inherit.mrp.workorder</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_kanban"/>
+        <field name="arch" type="xml">
+            <field name="oee_target" position="after">
+                <field name="control_type"/>
+            </field>
+
+            <xpath expr="//div[hasclass('o_kanban_card_content')]" position="attributes">
+                <attribute name="style">padding-bottom: 2em;</attribute>
+            </xpath>
+
+            <xpath expr="//t[@t-if='record.workorder_count.raw_value &gt; 0']" position="replace">
+                <t t-if="record.workorder_count.raw_value &gt; 0">
+                    <t t-if="record.control_type.raw_value == 'standard'">
+                        <button style="white-space:initial;width:50%" class="btn btn-primary" name="%(mrp.action_work_orders)d" type="action" context="{'search_default_ready': 1, 'search_default_progress': 1}">
+                            <i class="fa fa-2x fa-desktop"/><br/>
+                            <span>WORK ORDERS</span>
+                        </button>
+                        <button style="white-space:initial;width:50%" t-if="record.control_type.raw_value == 'standard'" class="btn btn-secondary" name="%(mrp_workorder.mrp_workorder_action_tablet)d" type="action" context="{'search_default_ready': 1, 'search_default_progress': 1}">
+                            <i class="fa fa-2x fa-tablet"/><br/>
+                            <span>WORKCENTER PANEL</span>
+                        </button>
+                    </t><t t-else="">
+                        <button class="btn btn-primary" name="%(mrp.action_work_orders)d" type="action" context="{'search_default_ready': 1, 'search_default_progress': 1}">
+                            <span>WORK ORDERS</span>
+                        </button>
+                    </t>
+                </t>
+            </xpath>
+
+            <xpath expr="//button[hasclass('btn', 'btn-secondary', 'fa-desktop')]" position="replace"/>
+
+        </field>
+    </record>
+
+</odoo>

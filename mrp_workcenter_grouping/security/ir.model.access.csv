@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mrp_manager_mrp_workcenter_group,mrp_manager_mrp_workcenter_group,model_mrp_workcenter_group,mrp.group_mrp_manager,1,1,1,1
+mrp_manager_mrp_department,mrp_manager_mrp_department,model_mrp_department,mrp.group_mrp_manager,1,1,1,1
+mrp_manager_mrp_plant,mrp_manager_mrp_plant,model_mrp_plant,mrp.group_mrp_manager,1,1,1,1
+base_user_mrp_workcenter_group,base_user_mrp_workcenter_group,model_mrp_workcenter_group,base.group_user,1,0,0,0
+base_user_mrp_department,base_user_mrp_department,model_mrp_department,base.group_user,1,0,0,0
+base_user_mrp_plant,base_user_mrp_plant,model_mrp_plant,base.group_user,1,0,0,0

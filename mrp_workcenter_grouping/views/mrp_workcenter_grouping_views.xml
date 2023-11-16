@@ -1,0 +1,139 @@
+<odoo>
+
+    <record id="mrp_plant_action" model="ir.actions.act_window">
+        <field name="name">Work Centers</field>
+        <field name="res_model">mrp.plant</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="mrp_department_action" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">mrp.department</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="mrp_workcenter_group_action" model="ir.actions.act_window">
+        <field name="name">Work Centers Groups</field>
+        <field name="res_model">mrp.workcenter.group</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <!-- Plants -->
+    <record id="view_mrp_plant_tree" model="ir.ui.view">
+        <field name="name">mrp.plant.tree</field>
+        <field name="model">mrp.plant</field>
+        <field name="arch" type="xml">
+            <tree string="Plants" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mrp_plant_form" model="ir.ui.view">
+        <field name="name">mrp.plant.form</field>
+        <field name="model">mrp.plant</field>
+        <field name="arch" type="xml">
+            <form string="Plants">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Departments -->
+    <record id="view_mrp_department_tree" model="ir.ui.view">
+        <field name="name">mrp.department.tree</field>
+        <field name="model">mrp.department</field>
+        <field name="arch" type="xml">
+            <tree string="Departments" editable="bottom">
+                <field name="name"/>
+                <field name="plant_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mrp_department_form" model="ir.ui.view">
+        <field name="name">mrp.department.form</field>
+        <field name="model">mrp.department</field>
+        <field name="arch" type="xml">
+            <form string="Departments">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>                    
+                        <group>
+                            <field name="plant_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Groups -->
+    <record id="view_mrp_workcenter_group_tree" model="ir.ui.view">
+        <field name="name">mrp.workcenter.group.tree</field>
+        <field name="model">mrp.workcenter.group</field>
+        <field name="arch" type="xml">
+            <tree string="Workcenter Groups" editable="bottom">
+                <field name="name"/>
+                <field name="plant_id"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mrp_workcenter_group_form" model="ir.ui.view">
+        <field name="name">mrp.workcenter.group.form</field>
+        <field name="model">mrp.workcenter.group</field>
+        <field name="arch" type="xml">
+            <form string="Workcenter Groups">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>                    
+                        <group>
+                            <field name="plant_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="mrp.menu_view_resource_search_mrp"
+            action=""
+            name="Workcenters"
+            groups="mrp.group_mrp_routings"
+            parent="mrp.menu_mrp_configuration"
+            sequence="90"/>
+
+    <menuitem id="menu_config_mrp_plant"
+            sequence="10"
+            action="mrp_plant_action"
+            name="Plants"
+            parent="mrp.menu_view_resource_search_mrp"/>
+
+    <menuitem id="menu_config_mrp_department"
+            sequence="20"
+            action="mrp_department_action"
+            name="Departments"
+            parent="mrp.menu_view_resource_search_mrp"/>
+
+    <menuitem id="menu_config_mrp_group"
+            sequence="30"
+            action="mrp_workcenter_group_action"
+            name="Workcenter Groups"
+            parent="mrp.menu_view_resource_search_mrp"/>
+    
+    <menuitem id="menu_view_resource_search_mrp"
+            sequence="40"
+            action="mrp.mrp_workcenter_action"
+            name="Workcenters"
+            parent="mrp.menu_view_resource_search_mrp"/>
+
+</odoo>

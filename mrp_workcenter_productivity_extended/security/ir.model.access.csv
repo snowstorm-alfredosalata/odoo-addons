@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mrp_manager_productivity_loss,mrp_manager_productivity_loss,mrp.model_mrp_workcenter_productivity_loss,mrp.group_mrp_manager,1,1,1,1
+mrp_manager_productivity_loss_type,mrp_manager_productivity_loss_type,mrp.model_mrp_workcenter_productivity_loss_type,mrp.group_mrp_manager,1,1,1,1

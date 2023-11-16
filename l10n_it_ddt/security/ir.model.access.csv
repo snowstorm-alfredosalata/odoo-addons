@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+inventory_user_gdesc,rule.usr.gdesc,l10n_it_ddt.model_l10n_it_goods_description,stock.group_stock_user,1,0,0,0
+inventory_mgr_gdesc,rule.mgr.gdesc,l10n_it_ddt.model_l10n_it_goods_description,stock.group_stock_manager,1,1,1,1
+inventory_user_ddtreason,rule.usr.ddtreason,l10n_it_ddt.model_l10n_it_ddt_reason,stock.group_stock_user,1,0,0,0
+inventory_mgr_ddtreason,rule.mgr.ddtreason,l10n_it_ddt.model_l10n_it_ddt_reason,stock.group_stock_manager,1,1,1,1
+inventory_user_ddt,rule.usr.ddt,l10n_it_ddt.model_l10n_it_ddt,stock.group_stock_user,1,1,1,1
+inventory_mgr_ddt,rule.mgr.ddt,l10n_it_ddt.model_l10n_it_ddt,stock.group_stock_manager,1,1,1,1
+inventory_user_ddt_line,rule.usr.ddt.line,l10n_it_ddt.model_l10n_it_ddt_descriptive_line,stock.group_stock_user,1,1,1,1
+inventory_mgr_ddt_line,rule.mgr.ddt.line,l10n_it_ddt.model_l10n_it_ddt_descriptive_line,stock.group_stock_manager,1,1,1,1

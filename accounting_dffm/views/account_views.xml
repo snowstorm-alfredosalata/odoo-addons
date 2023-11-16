@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_payment_term_line_form" model="ir.ui.view">
+            <field name="name">account.payment.term.line.form</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='days'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','not in',('day_after_invoice_date','after_invoice_month', 'months_after_invoice_date'))]}</attribute>
+                </xpath>
+                <xpath expr="//label[@for='days'][2]" position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','in',('day_after_invoice_date','after_invoice_month', 'months_after_invoice_date'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='day_of_the_month']/.." position="attributes">
+                    <attribute name="attrs">{'invisible': [('option','not in', ['day_after_invoice_date', 'months_after_invoice_date'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

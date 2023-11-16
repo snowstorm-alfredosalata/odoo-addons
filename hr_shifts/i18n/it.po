@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shifts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-02 23:08+0000\n"
+"PO-Revision-Date: 2018-12-03 00:11+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__employee_count
+msgid "# of Employees"
+msgstr "# di Dipendenti"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__create_uid
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__create_date
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__current
+msgid "Current"
+msgstr "Attuale"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__display_name
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: hr_shifts
+#: model:ir.model,name:hr_shifts.model_hr_employee
+msgid "Employee"
+msgstr "Dipendente"
+
+#. module: hr_shifts
+#: code:addons/hr_shifts/models/hr_shift.py:54
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__employee_ids
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+#, python-format
+msgid "Employees"
+msgstr "Dipendenti"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__id
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__interval
+msgid "Interval"
+msgstr "Intervallo"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift____last_update
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line____last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__write_uid
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__write_date
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__date
+msgid "Next Rotation"
+msgstr "Prossima Rotazione"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__name
+#: model_terms:ir.ui.view,arch_db:hr_shifts.view_employee_filter_groupby_shift
+msgid "Schedule"
+msgstr "Orario"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift__line_ids
+msgid "Schedules"
+msgstr "Orari"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__sequence
+msgid "Sequence"
+msgstr "Sequenza"
+
+#. module: hr_shifts
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+msgid "Set Current"
+msgstr "Imposta Attuale"
+
+#. module: hr_shifts
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_employee__shift_id
+#: model:ir.model.fields,field_description:hr_shifts.field_hr_shift_line__shift_id
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+#: model_terms:ir.ui.view,arch_db:hr_shifts.view_employee_filter_groupby_shift
+msgid "Shift"
+msgstr "Turno"
+
+#. module: hr_shifts
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+msgid "Shift Now"
+msgstr "Ruota Adesso"
+
+#. module: hr_shifts
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+msgid "Shift every"
+msgstr "Ruota ogni"
+
+#. module: hr_shifts
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+msgid "Shift name..."
+msgstr "Nome turno..."
+
+#. module: hr_shifts
+#: model:ir.actions.act_window,name:hr_shifts.action_view_shifts
+#: model:ir.ui.menu,name:hr_shifts.menu_shifts
+msgid "Shifts"
+msgstr "Turni"
+
+#. module: hr_shifts
+#: model:ir.model,name:hr_shifts.model_hr_shift
+msgid "Work Shifts"
+msgstr "Turni di Lavoro"
+
+#. module: hr_shifts
+#: model:ir.model,name:hr_shifts.model_hr_shift_line
+msgid "Work Shifts Lines"
+msgstr "Linee dei Turni di Lavoro"
+
+#. module: hr_shifts
+#: model_terms:ir.ui.view,arch_db:hr_shifts.shift_view_form
+msgid "days."
+msgstr "giorni."

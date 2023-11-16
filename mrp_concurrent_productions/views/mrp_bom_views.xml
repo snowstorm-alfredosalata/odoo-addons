@@ -1,0 +1,28 @@
+<odoo>
+    <record model="ir.ui.view" id="mrp_bom_child_boms">
+        <field name="name">mrp.bom.child_boms</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="routing_id" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('type','not in',('normal','phantom')), ('parent_id', '!=', False)]}</attribute>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Child Bill of Materials" attrs="{'invisible': ['|', '|', ('type', '!=', 'normal'), ('child_ids', '=', []), ('parent_id', '!=', False)]}">
+                    <field name="child_ids" nolabel="1" readonly="1">
+                        <tree>
+                            <field name="product_tmpl_id"/>
+                            <field name="code"/>
+                            <field name="product_uom_id"/>
+                            <field name="product_qty"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="parent_id" attrs="{'invisible': ['|', ('type', '!=', 'normal'), ('child_ids', '!=', [])]}"/>
+                <field name="cost_weight" attrs="{'invisible': ['|', ('type', '!=', 'normal'), '&amp;', ('child_ids', '=', []), ('parent_id', '=', False)]}" />
+            </field>
+        </field>
+    </record>
+</odoo>

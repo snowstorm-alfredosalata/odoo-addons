@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_large_badge" model="report.paperformat">
+        <field name="name">Large Badge</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+        id="visits_print_badge"
+        string="Print Badge"
+        model="visit.pass"
+        report_type="qweb-pdf"
+        name="visits.print_visit_badge"
+        file="visits.print_visit_badge"
+        print_report_name="'Print Badge - %s' % (object.name).replace('/', '')"
+        paperformat="paperformat_large_badge"
+        menu="False"
+    />
+
+    <template id="print_visit_badge">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="visit">
+                <div class="page" style="page-break-before:always;">
+                    <link rel='stylesheet' href="/visits/static/report/css/style.css"/>
+                    <div class="page-filler">
+                        <div class="vhalf">
+                            <div class="hhalf" id="visitor-pagelet">
+                                <t t-set="company" t-value="res_company"/>
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" id="company-logo"/><br/>
+                                <h id="visit-statement">VISITOR PASS</h>
+                                <div class="infogroup">
+                                    <h id="visitor"><t t-esc="visit.visitor"/></h><br/>
+                                    <h id="visitor-company"><t t-esc="visit.visitor_company"/></h><br/>
+                                </div>
+                                <div class="infogroup">
+                                    <h id="conductor-label">ACCOMPAGNATORE</h><br/>
+                                    <h id="conductor"><t t-esc="visit.conductor.name"/></h><br/>
+                                </div>
+
+                                <div class="adm_info">
+                                    <div class="hhalf tleft">
+                                        <p class="date_label">Valido da:</p>
+                                        <p class="date"><t t-esc="visit.date_in"/></p>
+                                        <p class="date_label">Valido fino:</p>
+                                        <p class="date"><t t-esc="visit.date_out"/></p>
+                                    </div>
+                                    <div class="hspace"></div>
+                                    <div class="hhalf">
+                                    <img style="height:120pt;width:120pt;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', placeholder, 1200, 1200)"/>
+                                    </div>
+                                </div>
+                                <t t-if="visit.is_unaccompained == true"> <div style="color:white;background:green" class="talloncino"><h1>MOVIMENTO AUTONOMO AUTORIZZATO</h1></div></t>
+                                <t t-if="visit.is_unaccompained == false"> <div style="color:white;background:red" class="talloncino"><h1>MOVIMENTO AUTONOMO NON AUTORIZZATO</h1></div></t>
+                            </div>
+                            <div class="hspace"></div>
+                            <div class="hhalf" id="welcomebox">
+                                <h1>Gentili Visitatori,</h1>
+                                <p1>Vi preghiamo di leggere attentamente le presenti regole di buon comportamento e di attenervici per tutta la durata della vostra visita.<br/>
+                                    Tali regole sono essenziale tutela della vostra sicurezza e della confidenzialità accordataci dai nostri clienti.<br/>
+                                    Firmando questo depliant accettate di rispettare le norme ivi riportatevi.<br/>
+                                    Siete pregati di riconsegnarlo all'uscita dall'azienda.
+                                    <strong>Vi auguriamo una buona visita.</strong></p1><br/>
+                                <div style="height: 120pt" class="talloncino">
+                                    <div class="hhalf tleft">
+                                        <h1>Centralino RDS:</h1>
+                                        <h1>Ambulanza:</h1>
+                                        <h1>Vigili del Fuoco:</h1>
+                                    </div>
+                                    <div class="hspace"></div>
+                                    <div class="hhalf tright">
+                                        <h1>049 9934711</h1>
+                                        <h1>118</h1>
+                                        <h1>115</h1>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vspace"></div>
+                        <div class="vhalf">
+                            <div class="hhalf" id="rules">
+                                <h3>TUTELA DELLE PERSONE</h3>
+                                <p3>RDS è un ambiente manifatturiero non privo di rischi. Siete pregati di prendere visione del foglio rischi sul retro di questa brochure.
+                                Al visitatore è proibito uscire dai percorsi di sicurezza o dagli uffici senza l'accompagnamento da parte del personale RDS, salvo esplicita autorizzazione.
+                                Qualunque interazione con personale operativo o macchinari è proibita, a meno che non sia implicata nella causale della visita.
+                                Quando il motivo della visita richiedesse interazioni con macchinari o altri fattori di rischio il visitatore deve <u>obbligatoriamente</u> indossare tutti i DPI richiesti dall'analisi di rischio.
+                                I DPI devono essere regolarmente omologati e saranno forniti da RDS qualora il visitatore ne fosse sprovvisto.
+                                Qualunque operazione in aree operative deve essere comunque supervisionata dal personale RDS, salvo esplicita autorizzazione.
+                                Il visitatore è tenuto a seguire qualsiasi ulteriore indicazione di sicurezza datagli dal personale RDS. </p3>
+                                <br/>
+                                <br/>
+                                <h3>TUTELA DELL'AMBIENTE</h3>
+                                <p3>RDS genera rifiuti inquinanti di diverso tipo che devono essere smaltiti in maniera opportuna a tutela dell'ambiente.
+                                E' quindi severamente proibito gettare qualsiasi tipo di rifiuto in contenitori diversi da quelli predisposti.
+                                E' altresì proibito abbandonare rifiuti di qualsiasi tipo nelle aree interne ed esterne di RDS. Gli effetti personali vanno lasciati nelle aree indicate dal personale RDS.
+                                Effetti personali abbandonati nelle aree operative possono essere rimossi e gettati. </p3>
+                                <br/>
+                                <br/>
+                                <h3>TUTELA DELLE INFORMAZIONI</h3>
+                                <p3>Il visitatore può accedere esclusivamente alle aree pertinenti con il motivo della sua visita.
+                                Qualunque accesso alla Sala Server o agli uffici, inclusi ufficio tecnico e ufficio qualità, è vincolato dall'accompagnamento e dalla supervisione del personale RDS, <u>anche per visitatori autorizzati al movimento autonomo.</u>
+                                E' severamente proibito appropriarsi di documenti, disegni, campioni, manufatti, strumenti, files o archivi (inclusi dischi fissi, CD o DVD e chiavette USB) di proprietà RDS o dei suoi clienti, salvo che questi non vengano consegnati da personale autorizzato.
+                                E' inoltre proibito produrre copie, scattare fotografie o registrare audio o video rappresentanti il materiale indicato nel punto precedente, salvo previo mandato esplicito da personale autorizzato.
+                                Ai fini dei punti sopra indicati sono personale autorizzato il Titolare, i Responsabili degli Uffici ed i Capireparto e, comunque, solo laddove il materiale sia pertinente con lo scopo della visita e con l'area di competenza del responsabile che estende l'autorizzazione. </p3>
+                                <br/>
+                                <br/>
+                                <h3>VARIE</h3>
+                                <p3>RDS Raccomanda inoltre di seguire qualsiasi consiglio o richiesta estesa dal suo personale.
+                                Al visitatore è richiesto di esporre questo depliant secondo le modalità che gli verrano indicate al suo ricevimento.
+                                E' obbligatorio effettuare il Check-in ad ogni accesso ed il Check-out ad ogni uscita.
+                                Check-in e Check-out devono essere effettuati presso l'entrata degli uffici indicata nella mappa a fianco. </p3>
+                                <br/>
+                                <p3 class="formal">RDS MOULDING TECHNOLOGY S.P.A. - VIA CAVALIERI DI MALTA 8 TORREGLIA (PD) - P. IVA 00221660285</p3>
+                            </div>
+                            <div class="hspace"></div>
+                            <div class="hhalf" id="plant">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-filler" id="leaflet-risk">
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

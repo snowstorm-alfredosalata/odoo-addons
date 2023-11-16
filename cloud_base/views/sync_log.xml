@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="sync_log_view_search" model="ir.ui.view">
+        <field name="name">sync.log.search</field>
+        <field name="model">sync.log</field>
+        <field name="arch" type="xml">
+            <search>
+               <field name="name"/>
+               <filter  string="Failures"
+                        name="fail"
+                        domain="[('ttype', '=', 'failure')]"
+               />
+               <filter  string="Warnings"
+                        name="warn"
+                        domain="[('ttype', '=', 'warning')]"
+               />
+               <filter  string="Success logs"
+                        name="success"
+                        domain="[('ttype', '=', 'success')]"
+               />
+               <group  expand='0' string='Group by...'>
+                    <filter name="type_group"
+                            string="Type"
+                            context="{'group_by' : 'ttype'}"
+                    />
+                    <filter name="time_group_group"
+                            string="Month"
+                            context="{'group_by' : 'log_time'}"
+                    />
+                    <filter name="type_group"
+                            string="Day"
+                            context="{'group_by' : 'log_time:day'}"
+                    />
+               </group>
+            </search>
+        </field>
+    </record>
+    <record id="sync_log_view_form" model="ir.ui.view">
+        <field name="name">sync.log.form</field>
+        <field name="model">sync.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                      <field name="log_time"/>
+                      <field name="ttype"/>
+                    </group>
+                    <field name="name"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sync_log_view_tree" model="ir.ui.view">
+        <field name="name">sync.log.tree</field>
+        <field name="model">sync.log</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="ttype in ['failure']"
+                  decoration-warning="ttype in ['warning']"
+                  decoration-success="ttype in ['success']"
+            >
+                <field name="log_time"/>
+                <field name="ttype"/>
+                <field name='name'/>
+            </tree>
+        </field>
+    </record>
+    <record id="sync_log_action" model="ir.actions.act_window">
+        <field name="name">Logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sync.log</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" eval="sync_log_view_search"/>
+    </record>
+
+</odoo>

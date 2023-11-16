@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_it_ddt_wizard" model="ir.ui.view">
+        <field name="name">l10n_it.ddt.wizard</field>
+        <field name="model">l10n_it.ddt</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form string="Transfer">
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('name','=','/')]}"/>
+                    </h1>
+                    <group>
+                    <field name="state" invisible="1"/>
+                        <group>
+                            <field name="locked" invisible="1"/>
+                            <field name="partner_ddt_number" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')], 'required': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_id" string="Addressee" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_id" string="Sender" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_id" required="1" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_id" string="Shipping Address" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_id" string="Shipped From" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_shipping_id" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <div class="o_td_label">
+                                <label for="partner_invoice_id" string="Invoice To" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"/>
+                                <label for="partner_invoice_id" string="Invoiced From" style="font-weight:bold;"
+                                       attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                            </div>
+                            <field name="partner_invoice_id" nolabel="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="picking_type_id" required="1" attrs="{'readonly' : ['|', ('picking_ids', '!=', []), ('state','!=','draft')]}"/>
+                            <field name="picking_type_code" invisible="1" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="carrier_type" required="1" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')],'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <field name="carrier_partner_id" attrs="{'invisible': [('carrier_type', '!=', 'other')], 'required': [('carrier_type', '=', 'other')], 'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="ddt_reason_id" widget="selection" required="1" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/> 
+                            <field name="goods_description_id" widget="selection" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')], 'required': [('picking_type_code', '=', 'outgoing')], 'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <label for="number_of_packages" groups="base.group_user" string="Packages" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                            <div class="o_row" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}">
+                                <field name="number_of_packages" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/>
+                                <span>weighing <field class="oe_inline" name="shipping_weight" attrs="{'readonly' : ['&amp;', ('locked', '=', True), ('state','!=','draft')]}"/></span> <span><field class="oe_inline" name="weight_uom_name"/> </span>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines" attrs="{'invisible': [('picking_ids','!=',[])]}">
+                            <field name="descriptive_lines" mode="tree,kanban">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                </tree>
+                            </field>
+                            <p>Manually created DDTs will not generate inventory moves and are not invoiceable. Please create a Sale Order and validate pickings to generate invoiceable DDTs.</p>
+                        </page>
+                        <page string="Pickings" attrs="{'invisible': [('picking_ids','=',[])]}">
+                            <field name="ux_picking_ids" mode="tree,kanban" readonly='1' />
+                            <field name="picking_ids" invisible='1' />
+                        </page>
+                        <page string="Operations" attrs="{'invisible': [('picking_ids','=',[])]}">
+                            <field name="move_lines" mode="tree,kanban" readonly='1'/>
+                        </page>
+                        <page string="Notes">
+                            <group>
+                                <field name="note" nolabel="1" />
+                            </group>
+                            <group groups="base.group_multi_company">
+                                <group>
+                                    <field name="company_id" options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="button_validate_picking_auto_ddt" string="Validate Picking &amp; Transport Document" type="object" class="oe_highlight"/>
+                        <button name="button_validate_picking" string="Validate Picking" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

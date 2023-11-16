@@ -1,0 +1,57 @@
+<odoo>        
+        <record id="reason_sale" model="l10n_it.ddt.reason">
+            <field name="name">Vendita</field>
+        </record>
+        <record id="reason_sale2" model="l10n_it.ddt.reason">
+            <field name="name">Sostituzione in Garanzia</field>
+        </record>
+
+        <record id="reason_1" model="l10n_it.ddt.reason">
+            <field name="name">Conto Visione</field>
+        </record>
+        <record id="reason_2" model="l10n_it.ddt.reason">
+            <field name="name">Conto Riparazione</field>
+        </record>
+        <record id="reason_3" model="l10n_it.ddt.reason">
+            <field name="name">Conto Lavoro</field>
+        </record>
+
+        <record id="reason_7" model="l10n_it.ddt.reason">
+            <field name="name">Nolleggio</field>
+        </record>
+
+        <record id="reason_4" model="l10n_it.ddt.reason">
+            <field name="name">Reso da Conto Visione</field>
+        </record>
+        <record id="reason_5" model="l10n_it.ddt.reason">
+            <field name="name">Reso da Conto Riparazione</field>
+        </record>
+        <record id="reason_6" model="l10n_it.ddt.reason">
+            <field name="name">Reso da Conto Lavoro</field>
+        </record>
+
+        <record id="reason_8" model="l10n_it.ddt.reason">
+            <field name="name">Reso da Nolleggio</field>
+        </record>
+
+        <record id="description_1" model="l10n_it.goods_description">
+            <field name="name">Cartoni su Bancali</field>
+        </record>
+        <record id="description_2" model="l10n_it.goods_description">
+            <field name="name">Gabbie su Bancali</field>
+        </record>
+        <record id="description_3" model="l10n_it.goods_description">
+            <field name="name">Sfusi su Bancali</field>
+        </record>
+
+        <record id="description_4" model="l10n_it.goods_description">
+            <field name="name">Sfusi</field>
+        </record>
+        <record id="description_5" model="l10n_it.goods_description">
+            <field name="name">Cartoni</field>
+        </record>
+        <record id="description_6" model="l10n_it.goods_description">
+            <field name="name">Sacchi</field>
+        </record>
+
+</odoo>

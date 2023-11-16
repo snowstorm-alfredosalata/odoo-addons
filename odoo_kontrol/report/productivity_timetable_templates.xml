@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_productivity_timetable">
+        <div class="o_mrp_bom_report_page report_productivity_timetable" style="margin: 16px 16px;">
+            <div class="row col-lg-12" style="margin-bottom:32px;margin-left:0">
+                <div class="timetable-header">TABELLA TEMPORALE EFFICIENZA</div>
+                <div class="timetable-subheader"></div>
+                <div class="timetable-oee-wrapper progress">
+                    <span id="oee_percentage">OEE: 0%</span>
+                    <div class="progress-bar" id="oee_bar" role="progressbar"></div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div id="timetable-canvas" class="col-lg-12">
+
+                </div>
+            </div>
+            <hr/>
+            <div class="timetable-header">Legenda</div>
+            <div class="timetable-legend">
+
+            </div>
+        </div>
+    </template>
+</odoo>

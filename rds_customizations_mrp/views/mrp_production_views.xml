@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="pro_production_form_edit_routing">
+            <field name="name">mrp.production.form.edit.routing</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="before">
+                    <field name="request_ids" invisible="1"/>
+                    <div class="alert alert-danger" role="alert" style="text-align: center; font-size: 18px"
+                        attrs="{'invisible': [('request_ids','=', [])]}">
+                        <span class="fa fa-exclamation-triangle" style="color:red;width:100%;text-align:center;font-size:40px"></span>
+                        <br/>Attenzione: Ci sono attrezzature in manutenzione!
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_bom_child_boms">
+        <field name="name">mrp.bom.child_boms</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Attrezzature">
+                    <field name="equipment_ids" nolabel="1">
+                        <tree>
+                            <field name="model"/>
+                            <field name="serial_no"/>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="assign_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

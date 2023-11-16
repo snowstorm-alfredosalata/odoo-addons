@@ -1,0 +1,925 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_book
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-18 08:08+0000\n"
+"PO-Revision-Date: 2018-12-18 09:17+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day___dayofweek_letter
+msgid " Dayofweek Letter"
+msgstr "Giornodellasett Lettera"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<span>Attendance Book</span>"
+msgstr "Libro Presenze"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>Employee:</strong>"
+msgstr "<strong>Dipendente:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>Festivities:</strong>"
+msgstr "<strong>Ferie:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>From:</strong>"
+msgstr "<strong>Da:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>Hours of Justified Absence:</strong>"
+msgstr "<strong>Ore di Assenza Giustificata:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>Of Which Extra:</strong>"
+msgstr "<strong>Di cui straordinari:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>To:</strong>"
+msgstr "<strong>Da:</strong>"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "<strong>Total Worked Hours:</strong>"
+msgstr "<strong>Ore di Lavoro:</strong>"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.report,att_type:0
+#: selection:hr.attendance.type,att_type:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_search
+msgid "Absence"
+msgstr "Assenza"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__absence_index
+msgid "Absence Index"
+msgstr "Indice di Assenteismo"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Absences"
+msgstr "Assenze"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__reason_id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_leave_type__attendance_type
+msgid "Applied Reason"
+msgstr "Causale Applicata"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__reason_extra_id
+msgid "Applied Reason for Extras"
+msgstr "Causale di Staraordinario Applicata"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "April"
+msgstr "Aprile"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.report,att_type:0
+#: selection:hr.attendance.type,att_type:0
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__attendance_ids
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__attendance_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_search
+msgid "Attendance"
+msgstr "Presenze"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_advline_view_form
+msgid "Attendance Advantage"
+msgstr "Struttura Presenza"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_report_view_graph
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Attendance Analisys"
+msgstr "Analisi Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.actions.act_window,name:hr_attendance_book.attendance_report_action
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_report_view_pivot
+msgid "Attendance Analysis"
+msgstr "Analisi Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_report
+msgid "Attendance Analysis Report"
+msgstr "Report di Analisi delle Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.actions.report,name:hr_attendance_book.action_report_attendancebook
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_book
+msgid "Attendance Book"
+msgstr "Libro Presenze"
+
+#. module: hr_attendance_book
+#: code:addons/hr_attendance_book/models/hr_attendance_book.py:167
+#, python-format
+msgid "Attendance Book {}/{} for {}"
+msgstr "Libro Presenze {}/{} di {}"
+
+#. module: hr_attendance_book
+#: code:addons/hr_attendance_book/models/hr_employee.py:16
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_attendance_books
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_employee_form_shifts
+#, python-format
+msgid "Attendance Books"
+msgstr "Libri Presenze"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_adv_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_form
+msgid "Attendance Boook"
+msgstr "Libro Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_day
+msgid "Attendance Day"
+msgstr "Estratto Giornata"
+
+#. module: hr_attendance_book
+#: code:addons/hr_attendance_book/models/hr_attendance_book.py:182
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_attendance_day
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_day
+#, python-format
+msgid "Attendance Days"
+msgstr "Estratti Giornata"
+
+#. module: hr_attendance_book
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_extras_to_review
+msgid "Attendance Extra"
+msgstr "Presenze Straordinarie"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_book_generate
+msgid "Attendance Generation Wizard"
+msgstr "Procedura di Generazione Libri Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_attendance_structures
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_employee__structure_id
+msgid "Attendance Structure"
+msgstr "Strutture di Presenza"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_structure_line
+msgid "Attendance Structure Lines"
+msgstr "Linee di Struttura di Presenza"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_structure
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_structures
+msgid "Attendance Structures"
+msgstr "Strutture di Presenza"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_attendance_type
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__att_type
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__att_type
+msgid "Attendance Type"
+msgstr "Tipo Causale"
+
+#. module: hr_attendance_book
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_attendance_types
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_type
+msgid "Attendance Types"
+msgstr "Tipi Causali Presenza"
+
+#. module: hr_attendance_book
+#: model:ir.actions.server,name:hr_attendance_book.attendance_day_load_ir_actions_server
+#: model:ir.cron,cron_name:hr_attendance_book.attendance_day_load
+#: model:ir.cron,name:hr_attendance_book.attendance_day_load
+msgid "Attendance: Load"
+msgstr "Presenza: Carica"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Attendances"
+msgstr "Presenze"
+
+#. module: hr_attendance_book
+#: model:ir.ui.menu,name:hr_attendance_book.menu_hr_attendance_report_att_abs
+msgid "Attendances/Absences"
+msgstr "Presenze/Assenze"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "August"
+msgstr "Agosto"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__bad_markings
+msgid "Bad Markings"
+msgstr "Timbrature Errate"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__book_ids
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__workbook_id
+msgid "Book"
+msgstr "Libro"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_search
+msgid "By Employee"
+msgstr "Per Dipendente"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_search
+msgid "By Month"
+msgstr "Per Mese"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_search
+msgid "By Type"
+msgstr "Per Tipo"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_search
+msgid "By Workbook"
+msgstr "Per Libro Presenze"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Check in/out"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "Click \"Generate\" to start."
+msgstr "Premi \"Genera\" per iniziare."
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "Close"
+msgstr "Chiudi"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__code
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__code
+msgid "Code"
+msgstr "Codice"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__create_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__create_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__create_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__create_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__create_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__date
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Date"
+msgstr "Data"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__day
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Day"
+msgstr "Giornata"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__dayofweek
+msgid "Day of Week"
+msgstr "Giorno della Settimana"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__day_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Days"
+msgstr "Giorni"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "December"
+msgstr "Dicembre"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__name
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__employee_id
+msgid "Dipendente"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__display_name
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book.generate,state:0
+msgid "Done"
+msgstr "Fatto"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book.generate,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "Emit RiBas"
+msgstr "Emetti Riba"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_employee
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__employee_id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Employee"
+msgstr "Dipendente"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__time_end
+msgid "End"
+msgstr "Fine"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Ext."
+msgstr ""
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_search
+msgid "Extra"
+msgstr "Straordinarie"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.report,att_type:0
+#: selection:hr.attendance.type,att_type:0
+msgid "Extra Attendance"
+msgstr "Presenze Straordinarie"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Extras"
+msgstr "Straordinari"
+
+#. module: hr_attendance_book
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_day_extra
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_search
+msgid "Extras to Review"
+msgstr "Straordinari da Controllare"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "February"
+msgstr "Febbrario"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__date_start
+msgid "First of Month"
+msgstr "Primo del Mese"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "For a grand total of"
+msgstr "Per un totale complessivo di"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Friday"
+msgstr "Venerdì"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "Generate"
+msgstr "Generate"
+
+#. module: hr_attendance_book
+#: model:ir.actions.act_window,name:hr_attendance_book.action_view_hr_book_generation
+#: model:ir.ui.menu,name:hr_attendance_book.menu_attendance_book_generate
+msgid "Generate Attendance Books"
+msgstr "Genera Libri Presenze"
+
+#. module: hr_attendance_book
+#: code:addons/hr_attendance_book/wizard/book_generate.py:34
+#, python-format
+msgid "Generated Books"
+msgstr "Libri Presenze Generated"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__grand_total
+msgid "Grand Total"
+msgstr "Totale Complessivo"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__grand_total_e
+msgid "Grand Total Excepted"
+msgstr "Totale Complessivo Previsto"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Group By"
+msgstr "Raggruppa per"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__has_extra
+msgid "Has Extra"
+msgstr "Ha Straord."
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_search
+msgid "Has Issues"
+msgstr "Problemi"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.report,att_type:0
+#: selection:hr.attendance.type,att_type:0
+msgid "Holiday"
+msgstr "Ferie"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Holidays"
+msgstr "Ferie"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Indexes"
+msgstr "Indici"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__issues
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__issues
+msgid "Issues"
+msgstr "Problemi"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "January"
+msgstr "Gennaio"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "July"
+msgstr "Luglio"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "June"
+msgstr "Giugno"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line____last_update
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type____last_update
+msgid "Last Modified on"
+msgstr "Data di ultima modifica"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__write_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__write_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__write_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__write_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__write_date
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_type__write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__date_end
+msgid "Last of Month"
+msgstr "Ultimo del Mese"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__leave_ids
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__leave_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_type_view_search
+msgid "Leave"
+msgstr "Ferie"
+
+#. module: hr_attendance_book
+#: model:ir.model,name:hr_attendance_book.model_hr_leave_type
+msgid "Leave Type"
+msgstr "Tipo Ferie"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Leaves"
+msgstr "Ferie"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__cron_loaded
+msgid "Loaded by Cron"
+msgstr "Caricato dal Cron"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__long_lateness
+msgid "Long Lateness"
+msgstr "Ritardo Lungo"
+
+#. module: hr_attendance_book
+#: code:addons/hr_attendance_book/models/hr_attendance_book.py:418
+#, python-format
+msgid "MTWTFSS -- First six characters should be localized initals of weekdays."
+msgstr "LMMGVSD -- I primi sei caratteri dovrebbero corrispondere alle iniziali localizzate dei gg. della settimana."
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "March"
+msgstr "Marzo"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "May"
+msgstr "Maggio"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Monday"
+msgstr "Lunedì"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__month
+msgid "Month"
+msgstr "Mese"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "No workbooks were generated."
+msgstr "Nessun libro è stato generato."
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Nome"
+msgstr "Nome"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "October"
+msgstr "Ottobre"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Open Advanced View"
+msgstr "Apri Vista Avanzata"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Opens the attendance days in a dedicated view."
+msgstr "Apre le presenze in una vista dedicata."
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__passed
+msgid "Passed"
+msgstr "Passato"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__pay_extra
+msgid "Pay Extras"
+msgstr "Paga Straordinari"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_employee__payroll_code
+msgid "Payroll Code"
+msgstr "Codice Paghe"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__qty_1
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Qty 1"
+msgstr "Qtà 1"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__qty_2
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Qty 2"
+msgstr "Qtà 2"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__qty_3
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Qty 3"
+msgstr "Qtà 3"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__qty_4
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Qty 4"
+msgstr "Qtà 4"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__qty
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Quantity 1"
+msgstr "Quantità 1"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Quantity 2"
+msgstr "Quantità 2"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Quantity 3"
+msgstr "Quantità 3"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_day_view_form
+msgid "Quantity 4"
+msgstr "Quantità 4"
+
+#. module: hr_attendance_book
+#: model:ir.ui.menu,name:hr_attendance_book.menu_hr_attendance_report_moved
+msgid "Raw Attendances"
+msgstr "Presenze Grezze"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_report__reason_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Reason"
+msgstr "Causale"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__reason_1
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Reason 1"
+msgstr "Causale 1"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__reason_2
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Reason 2"
+msgstr "Causale 2"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__reason_3
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Reason 3"
+msgstr "Causale 3"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__reason_4
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Reason 4"
+msgstr "Causale 4"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Reload Day"
+msgstr "Ricarica Giorno"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Reload all days"
+msgstr "Ricarica tutti i giorni"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Saturday"
+msgstr "Sabato"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.book,month:0
+msgid "September"
+msgstr "Settembre"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__short_lateness
+msgid "Short Lateness"
+msgstr "Ritardo Breve"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Standard"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__time_start
+msgid "Start"
+msgstr "Inizio"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Statistics"
+msgstr "Statistiche"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book_generate__state
+msgid "Status"
+msgstr ""
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__structure_id
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure_line__structure_id
+msgid "Structure"
+msgstr "Struttura"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_structure__lines
+msgid "Structure Lines"
+msgstr "Linee Struttura"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Sunday"
+msgstr "Domenica"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "The following workbooks were generated."
+msgstr "I seguenti libri paga sono stati generati"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "The procedure has not found any missing workbook. Please double-check and ask your systemadmin for help if needed."
+msgstr "La procedura non ha trovato libri mancanti. Ricontrolla e, se necessario, chiedi aiuto al tuo amministratore di sistema."
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_search
+msgid "This Month"
+msgstr "Questo Mese"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "This wizard will look for missing workbooks and generate them."
+msgstr "Questa procedura controllerà i libri presenza e genererà quelli mancanti."
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Thursday"
+msgstr "Giovedì"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "To Nominals"
+msgstr "A Nominali"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__total
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "Total"
+msgstr "Totale"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.report_attendancebook_document
+msgid "Total (h)"
+msgstr "Totale (ore)"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__total_absence
+msgid "Total Absence"
+msgstr "Totale Assenze"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__total_e
+msgid "Total Excepted"
+msgstr "Totale Previsto"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__total_extra
+msgid "Total Extra"
+msgstr "Totale Straord."
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__total_holiday
+msgid "Total Holiday"
+msgstr "Totale Ferie"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__total_worked
+msgid "Total Worked"
+msgstr "Totale Lavorato"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Tuesday"
+msgstr "Martedì"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_attendance_report_search
+msgid "Type"
+msgstr "Tipo"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__unadherence_index
+msgid "Unadherence Index"
+msgstr "Indice di Assenteismo"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.view_hr_book_generation
+msgid "View Generated"
+msgstr "Viste Generate"
+
+#. module: hr_attendance_book
+#: selection:hr.attendance.day,dayofweek:0
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_day__resource_calendar_id
+msgid "Working Schedule"
+msgstr "Orario di Lavoro"
+
+#. module: hr_attendance_book
+#: model:ir.model.fields,field_description:hr_attendance_book.field_hr_attendance_book__year
+msgid "Year"
+msgstr "Anno"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "excepted."
+msgstr "atteso."
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "hours"
+msgstr "ore"
+
+#. module: hr_attendance_book
+#: model_terms:ir.ui.view,arch_db:hr_attendance_book.attendance_book_view_form
+msgid "out of"
+msgstr "su"

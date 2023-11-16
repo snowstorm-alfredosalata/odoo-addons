@@ -1,0 +1,13 @@
+.cloud_downloadable_docs {
+    color:#dddddd;
+    margin-left:2px;
+}
+.cloud_link_docs {
+    cursor:pointer;
+}
+.cloud_link_docs:hover {
+    color: white;
+}
+div.cloud_base_kanban_body .o_text_overflow.o_field_url {
+	display: inline !important;
+}

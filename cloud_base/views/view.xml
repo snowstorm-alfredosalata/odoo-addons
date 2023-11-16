@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="Cloud Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link type="text/css" rel='stylesheet' href="/cloud_base/static/src/css/chatter.css"></link>
+            <link type="text/scss" rel='stylesheet' href="/cloud_base/static/src/scss/image.scss"></link>
+            <script type="text/javascript" src="/cloud_base/static/src/js/abstract_message.js"></script>  
+            <script type="text/javascript" src="/cloud_base/static/src/js/chatter.js"></script>  
+            <script type="text/javascript" src="/cloud_base/static/src/js/attachment_box.js"></script>   
+            <script type="text/javascript" src="/cloud_base/static/src/js/thread_widget.js"></script>   
+            <script type="text/javascript" src="/cloud_base/static/src/js/jstree_widget.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

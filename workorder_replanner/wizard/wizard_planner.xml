@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mrp_workorder_planner_wizard" model="ir.ui.view">
+        <field name='name'>view.mrp.workorder.planner.wizard</field>
+        <field name='model'>workorder.planner.wizard</field>
+        <field name='arch' type='xml'>
+            <form string='Planning'>
+                <group>
+                    <field name="date_start"/>
+                    <field name="ongoing_wo"/>
+                    <field name="workcenter_ids" widget="many2many_tags"/>
+                </group>
+
+                <footer>
+                    <button name="run" string="Conferma" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_mrp_workorder_planner_wizard" model="ir.actions.act_window">
+        <field name="name">Ripianifica Workorder</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">workorder.planner.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_workorder_planner_wizard"
+        name="Pianifica Lavorazioni"
+        action="action_view_mrp_workorder_planner_wizard" 
+        parent="mrp.mrp_planning_menu_root"
+        sequence="100"/>
+
+</odoo>

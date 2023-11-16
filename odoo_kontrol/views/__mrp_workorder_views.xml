@@ -1,0 +1,164 @@
+<odoo>
+    <record model="ir.ui.view" id="mrp_workorder_view_form_inherit_workorder_tweaks">
+        <field name="name">mrp.production.work.order.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_inherit_workorder"/>
+        <field name="arch" type="xml">
+
+            <button name="open_tablet_view" position="before">
+                <field name="control_type" invisible="1"/>
+            </button>
+
+            <xpath expr="//header"  position="attributes">
+                <attribute name="attrs">{'invisible':  [('control_type', '!=', 'standard')]}</attribute>
+            </xpath>
+
+            <xpath expr="//header" position="after">
+                <header attrs="{'invisible':  [('control_type', '=', 'standard')]}">
+                    <button name="button_finish_force" type="object" string="Finish Order" attrs="{'invisible': ['|', ('state', '!=', 'progress'), ('is_produced', '=', False)]}" class="btn-info"/>
+                    <button name="button_start" type="object" string="Start Working" attrs="{'invisible': [('state', '!=', 'pending')]}"/>
+                    <button name="button_start" type="object" string="Start Working" attrs="{'invisible': [('state', '!=', 'ready')]}" class="btn-success"/>
+                    <button name="record_production" type="object" string="Record Production" class="btn-success" attrs="{'invisible': ['|', '|', '|', '|', ('qty_producing', '=', '0'), ('control_type', '=', 'auto'), ('working_state', '=', 'blocked'), ('state', '!=', 'progress'), ('is_user_working', '=', False)]}"/>
+                    <button name="record_production" type="object" string="Record Production" attrs="{'invisible': ['|', '|', ('qty_producing', '=', '0'), ('control_type', '!=', 'auto'), ('state', '!=', 'progress')]}"/>
+                    <button name="button_pending" type="object" string="Pause" class="btn-warning" attrs="{'invisible': ['|', '|',  '|', ('control_type', '=', 'auto'), ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
+                    <button name="%(mrp.act_mrp_block_workcenter_wo)d" type="action" context="{'default_workcenter_id': workcenter_id}" string="Block" class="btn-danger" attrs="{'invisible': ['|', '|',  '|', ('control_type', '=', 'auto'), ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
+                    <button name="button_unblock" type="object" string="Unblock" class="btn-danger" attrs="{'invisible': [ '|', ('control_type', '=', 'auto'), ('working_state', '!=', 'blocked')]}"/>
+                    <button name="button_start" type="object" string="Continue Production" class="btn-warning" attrs="{'invisible': ['|', '|',  '|', ('control_type', '=', 'auto'), ('working_state', '=', 'blocked'), ('is_user_working', '=', True), ('state', 'in', ('done', 'pending', 'ready', 'cancel'))]}"></button>
+                    <button name="button_scrap" type="object" string="Scrap" attrs="{'invisible': [('state', 'in', ('confirmed', 'cancel'))]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,ready,progress,done"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mrp_production_workorder_form_view_inherit_tweaks">
+        <field name="name">mrp.production.work.order.form.tweaks</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_id']/.." position="after">
+                <group>
+                    <field name="product_ids" nolabel="1" context="{'workorder_id': id}" colspan="2">
+                        <tree create="0" delete="0" editable="bottom" decoration-info="workorder_is_primary">
+                            <field name="display_name"/>
+                            <field name="workorder_qty_production"/>
+                            <field name="workorder_qty_produced"/>
+                            <field name="workorder_qty_scrapped"/>
+                            <field name="workorder_qty_scrapping" attrs="{'column_invisible': [('parent.state', '!=', 'progress')], 'readonly': [('parent.control_type', '!=', 'manual')]}" />
+                            <field name="workorder_uom"/>
+                            <field name="workorder_is_primary" invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <group>
+                    <field name="control_type" invisible="1"/>
+                    <field name="worker_type" invisible="1"/>
+                    <label for="active_employee_id" attrs="{'invisible': [('worker_type', '!=', 'employee')]}"/>
+                    <div class="active_employee_id" attrs="{'invisible': [('worker_type', '!=', 'employee')]}">
+                        <field name="active_employee_id" />
+                        <field name="can_change_employee" invisible="1" />
+                        <button type="object" name="employee_logout" string="Log Out" class="oe_link" attrs="{'invisible': ['|', ('can_change_employee', '=', False), ('active_employee_id', '=', False)]}"/>
+                    </div>
+                    <field name="production_id" readonly="1"/>
+                    <field name="bom_id"/>
+                    <field name="routing_id"/>
+                    <field name="split_parts"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='qty_producing']" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',  ('product_tracking', '=', 'serial'), ('state', 'in', ('done', 'cancel'))], 'invisible': ['|', ('control_type', '=', 'standard'), '&amp;', ('is_user_working', '=', False), ('worker_type', '!=', 'none')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_producing']" position="after">
+                <p class="alert alert-info" role="info" colspan="2" attrs="{'invisible': ['|', ('control_type', '=', 'standard'), '&amp;', ('is_user_working', '=', False), ('worker_type', '!=', 'none')]}">The above field refers to quantity of main product (highlighted in blue) being declared. Subproducts will be recalculated based on BoM ratios.</p>
+            </xpath>
+            <xpath expr="//field[@name='time_ids']/tree/field[@name='user_id']" position="replace">
+                <field name="user_id" attrs="{'column_invisible': [('parent.worker_type', '!=', 'user')]}"/>
+                <field name="employee_id" attrs="{'column_invisible': [('parent.worker_type', '!=', 'employee')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="workorder_productivity_kanban" model="ir.ui.view">
+        <field name="name">mrp_workorder_productivity_kanban</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates" position="replace">
+
+                <field name="id"/>
+                <field name="state"/>
+                <field name="on_target"/>
+                <field name="ux_active_loss"/>
+                <field name="ux_active_loss_color"/>
+                <field name="ux_active_loss_type"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="o_kanban_record oe_kanban_global_click state-#{record.state.raw_value} performance-#{record.on_target.raw_value}">
+                            <t t-set="color" t-value="(record.ux_active_loss_type.raw_value != 'productive') and record.ux_active_loss_color.raw_value or ''"/>
+
+                            <div t-if="record.state.raw_value == 'progress'" t-attf-style="background-color: 
+                            #{color}22;
+                            border-color: 
+                            #{color};
+                            color: 
+                            #{color};" class="loss_badge">
+                            
+                                <span t-if="(record.ux_active_loss_type.raw_value != 'productive')">
+                                    <span class="loss_header">BLOCKED</span><br/>
+                                    <field name="ux_active_loss"/>
+                                </span>
+
+                                <span t-else="">
+                                    <span class="loss_header">PRODUCING</span><br/>
+                                    <field name="on_target"/>
+                                </span>
+
+                            </div>
+
+                            <div t-else="" class="loss_badge">
+                                <span class="loss_header">
+                                    <field name="state"/>
+                                </span>
+                            </div>
+                            <div style="width: 100%;text-align: center;font-weight: bold;"><field name="bom_id"/></div>
+
+                            <div>
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings_l">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="workcenter_id"/>
+                                        </strong><br/>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="production_id"/><br/>
+                                            <field name="name"/><br/><br/>
+                                            <strong t-if="record.state.raw_value == 'progress'">Nominal Cycle Time: </strong><field t-if="record.state.raw_value == 'progress'" widget="float_time" name="time_cycle_nominal"/><br/>
+                                            <strong t-if="record.state.raw_value == 'progress'">Actual Cycle Time: </strong><field t-if="record.state.raw_value == 'progress'" widget="float_time" name="time_cycle"/><br/>
+                                        </span>
+                                    </div>
+                                    <div class="o_kanban_record_headings_r">
+                                        <div t-if="record.state.raw_value == 'progress'" class="oee-box">
+                                            <field name="ux_max_oee" invisible="1"/>
+                                            <field name="oee" widget="gauge" options="{'max_field': 'ux_max_oee'}"/>
+                                        </div>
+                                        <div t-else="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+
+            </xpath>
+
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="class">kontrol_productivity_kanban</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

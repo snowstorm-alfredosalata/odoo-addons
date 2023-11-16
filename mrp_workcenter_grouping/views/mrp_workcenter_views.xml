@@ -1,0 +1,20 @@
+<odoo>
+
+    <record id="mrp_workcenter_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.inherit</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <group name="costing" position="before">
+                <group name="grouping" string="Grouping">
+                    <field name="group_final" invisible="1"/>
+                    <field name="plant_id" attrs="{'readonly': [('group_final', '=', True)]}"/>
+                    <field name="department_id" domain="[('plant_id', '=', plant_id)]" attrs="{'readonly': [('group_final', '=', True)], 'invisible': [('plant_id', '=', False)]}"/>
+                    <field name="group_id" domain="[('department_id', '=', department_id)]" attrs="{'readonly': [('group_final', '=', True)], 'invisible': ['|', ('plant_id', '=', False), ('department_id', '=', False)]}"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+</odoo>

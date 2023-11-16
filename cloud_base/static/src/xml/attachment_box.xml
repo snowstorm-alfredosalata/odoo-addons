@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+
+    <t t-name="cloud_base.AttachmentPreview">
+        <div class="o_attachment" t-att-title="attachment.name">
+            <div class="o_attachment_wrap o_attachment_view_cloud" t-att-data-id="attachment.id">
+                <div class="o_image_box" >
+                    <t t-set="cloudDownloadable" 
+                       t-value="attachment.mimetype != 'application/octet-stream' and attachment.mimetype != 'special_cloud_folder'"
+                    />
+                    <div t-attf-class="o_image_overlay">
+                        <span t-if="isDeletable" 
+                              class="fa fa-times o_attachment_delete_cross cloud_hover" 
+                              t-att-title="'Delete ' + attachment.name" 
+                              t-att-data-id="attachment.id" 
+                              t-att-data-name="attachment.name"
+                        />
+                        <div t-attf-class="float-left #{cloudDownloadable and 'o_cloud_preview' or ''}" 
+                             t-att-data-id="attachment.id"
+                        >
+                            <span>
+                                <div class="o_image o_image_thumbnail " 
+                                     t-attf-data-mimetype="#{attachment.mimetype}"
+                                />
+                            </span>
+                        </div>
+                        <div class="cloud_attachment_content">
+                            <span class="cloud_attachment_name">
+                                <span>
+                                    <t t-esc="attachment.name"/>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="cloud_attachment_content">
+                            <span t-if="cloudDownloadable"
+                                  class="fa fa-cloud o_attachment_download_from_cloud pull-right cloud_hover" 
+                                  t-attf-title="Download from cloud #{attachment.name}" 
+                                  t-att-data-id="attachment.id" 
+                                  t-att-data-name="attachment.name"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    <div t-extend="mail.chatter.AttachmentBox">
+        <t t-jquery="div.o_attachments_list" t-operation="after">
+            <div t-if="widget.syncedList.length > 0" class="o_attachments_cloud_list">
+                <t t-foreach="widget.syncedList" t-as="attachment">
+                    <t t-call="cloud_base.AttachmentPreview">
+                        <t t-set="isDeletable" t-value="true"/>
+                    </t>
+                </t>
+            </div>
+        </t>
+        <t t-jquery="div.o_chatter_attachment_form" t-operation="append">
+            <center t-if="widget.cloudSynced">
+                <span class="btn btn-link o_open_cloud_folder">
+                    <span class="fa fa-cloud"/> 
+                    Open Cloud Folder
+                </span>
+            </center>
+        </t>
+    </div>
+    <t t-extend="mail.widget.Thread.Message">
+        <t t-jquery="div.o_attachments_list" t-operation="after">
+            <div t-if="message.hasSyncedAttachments()" class="o_attachments_cloud_list">
+                <t t-foreach="message.getSyncedAttachments()" t-as="attachment">
+                    <t t-call="cloud_base.AttachmentPreview">
+                        <t t-set="isDeletable" 
+                           t-value="options.hasMessageAttachmentDeletable"
+                        />
+                    </t>
+                </t>
+            </div>
+        </t>        
+    </t>
+
+
+</template>

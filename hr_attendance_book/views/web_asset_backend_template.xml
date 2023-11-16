@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_assets_common" name="hr_attendance_book assets" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel='stylesheet' href="/hr_attendance_book/static/report/css/payroll.css"/>
+        </xpath>
+    </template>
+    
+    <template id="assets_backend" name="hr_attendance_book assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/hr_attendance_book/static/src/scss/hr_attendance.scss"/>
+        </xpath>
+    </template>
+
+</odoo>

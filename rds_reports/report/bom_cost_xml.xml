@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="bom_cost_xml"><t t-foreach="docs" t-as="o"><t t-foreach="o.bom_line_ids" t-as="bom_line"><t><t t-esc="bom_line.product_id.default_code"/>;<t t-esc="bom_line.product_id.name"/>;<t t-options="{'widget': 'float', 'precision': currency_precision}" t-esc="bom_line.product_qty"/>;<t t-esc="bom_line.product_uom_id.name"/>;<t t-esc="bom_line.product_id.uom_id.name"/>;<t t-options="{'widget': 'float', 'precision': currency_precision}" t-esc="bom_line.product_id.standard_price"/>;<t t-options="{'widget': 'float', 'precision': currency_precision}" t-esc="(bom_line.product_id.uom_id.factor/bom_line.product_uom_id.factor)*bom_line.product_qty*bom_line.product_id.standard_price"/></t>
+</t><t t-foreach="o.routing_id.operation_ids" t-as="operation"><t><t t-esc="'{} {}'.format(operation.workcenter_id.code, operation.name)"/>;<t t-esc="operation.workcenter_id.name"/>;<t t-esc="operation.time_cycle*60" t-options="{'widget': 'float', 'precision': currency_precision}"/>;secondi;ore;<t t-options="{'widget': 'float', 'precision': currency_precision}" t-esc="operation.workcenter_id.costs_hour"/>;<t t-esc="operation.workcenter_id.costs_hour*operation.time_cycle/60" t-options="{'widget': 'float', 'precision': currency_precision}"/></t></t>
+</t></template>
+    </data>
+</odoo>

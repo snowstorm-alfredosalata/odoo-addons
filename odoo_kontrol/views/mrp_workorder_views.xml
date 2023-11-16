@@ -1,0 +1,44 @@
+<odoo>
+
+    <record model="ir.ui.view" id="mrp_workorder_view_form_inherit_time_log_data">
+        <field name="name">mrp.production.work.order.form.time.log.data</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_producing']/.." position="after">
+                <group name="interval" string="Other Data">
+                    <field name="worked_from"/>
+                    <field name="worked_to" attrs="{'invisible': [('worked_from','=',False)], 'required': [('worked_from', '!=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mrp_workorder_view_form_inherit_workorder_no_tablet">
+        <field name="name">mrp.production.work.order.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_inherit_workorder"/>
+        <field name="arch" type="xml">
+
+            <button name="open_tablet_view" position="after">
+                <field name="tablet_excluded" invisible="1"/>
+                <field name="mes_ignore" invisible="1"/>
+                <button name="button_start_no_tablet" type="object" string="Start Order (No Tablet)" attrs="{'invisible': ['|', ('tablet_excluded', '=', True), ('state', 'not in', ('ready', 'pending'))]}"/>
+
+                <button name="button_finish_force" type="object" string="Finish Order" attrs="{'invisible': ['|', '|', ('tablet_excluded', '=', False), ('state', '!=', 'progress'), ('is_produced', '=', False)]}" class="btn-info"/>
+                <button name="button_start" type="object" string="Start Working" attrs="{'invisible': ['|', ('tablet_excluded', '=', False), ('state', '!=', 'pending')]}"/>
+                <button name="record_production" type="object" string="Record Production" attrs="{'invisible': ['|', '|', ('tablet_excluded', '=', False), ('qty_producing', '=', '0'), ('state', '!=', 'progress')]}"/>
+                <button name="button_pending" type="object" string="Pause" attrs="{'invisible': ['|', ('tablet_excluded', '=', False), ('state', '!=', 'progress')]}"/>
+                <button name="%(mrp.act_mrp_block_workcenter_wo)d" type="action" context="{'default_workcenter_id': workcenter_id}" string="Block" class="btn-danger" attrs="{'invisible': ['|', '|',  '|', ('tablet_excluded', '=', False), ('working_state', '=', 'blocked'), ('state', 'in', ('done', 'pending', 'ready', 'cancel')), ('is_user_working', '=', False)]}"/>
+                <button name="button_unblock" type="object" string="Unblock" class="btn-danger" attrs="{'invisible': [ '|',('tablet_excluded', '=', False),('working_state', '!=', 'blocked')]}"/>
+                <button name="button_scrap" type="object" string="Scrap" class="btn-danger" attrs="{'invisible': ['|', ('tablet_excluded', '=', False), ('state', 'in', ('confirmed', 'cancel'))]}"/>
+            </button>
+
+            <button name="open_tablet_view" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('tablet_excluded', '=', True), ('state', 'not in', ('ready', 'progress'))]}</attribute>
+            </button> 
+
+        </field>
+    </record>
+
+</odoo>

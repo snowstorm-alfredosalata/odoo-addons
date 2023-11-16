@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_visit_user,access.visit.user,model_visitor_visitor,base.group_user,1,1,1,0
+access_visit_manager,access.rds.visit.manager,model_visitor_visitor,visitor.group_visitor_manager,1,1,1,1

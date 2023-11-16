@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Arakne Devices -->
+    <record id="arakne_device_tree_view" model="ir.ui.view">
+        <field name="name">arakne.device.tree</field>
+        <field name="model">arakne.device</field>
+        <field name="arch" type="xml">
+            <tree string="Arakne Device">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="arakne_device_view" model="ir.ui.view">
+        <field name="name">arakne.device.form</field>
+        <field name="model">arakne.device</field>
+        <field name="arch" type="xml">
+            <form string="Arakne Device">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Arakne Device Name" required="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_arakne_device_search" model="ir.ui.view">
+        <field name="name">arakne.device.search</field>
+        <field name="model">arakne.device</field>
+        <field name="arch" type="xml">
+            <search string="Search for mrp workcenter">
+                <field name="name" string="Arakne Device"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="arakne_device_action" model="ir.actions.act_window">
+        <field name="name">Devices</field>
+        <field name="res_model">arakne.device</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="arakne_device_tree_view"/>
+        <field name="search_view_id" ref="view_arakne_device_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new Arakne Device
+            </p><p>
+            Manufacturing operations are processed at Arakne Devices. A Arakne Device can be composed of
+            workers and/or machines, they are used for costing, scheduling, capacity planning, etc.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_arakne_device_overview"
+        action="arakne_device_action"
+        parent="menu_arakne_root"
+        sequence="20"/>
+
+</odoo>

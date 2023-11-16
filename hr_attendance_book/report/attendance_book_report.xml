@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<report 
+    id="action_report_attendancebook"
+    string="Attendance Book"
+    model="hr.attendance.book" 
+    report_type="qweb-pdf"
+    file="hr_attendance_book.report_attendancebook" 
+    name="hr_attendance_book.report_attendancebook"
+    print_report_name="('%s %s %s - Attendance Book' % (object.year, object.month, object.employee_id.name))"
+/>
+
+<template id="report_attendancebook_document">   
+    <t t-call="web.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h2>
+                <span>Attendance Book</span>
+            </h2>
+
+            <div class="row col mt32 mb32" id="informations">
+                <div name="employee" class="mr32">
+                    <strong>Employee:</strong>
+                    <p><t t-esc="'[%s] - %s' % (doc.employee_id.payroll_code, doc.employee_id.name)"/></p>
+                </div>
+                <div name="from" class="mr32">
+                    <strong>From:</strong>
+                    <p t-esc="doc.date_start"/>
+                </div>
+                <div name="to" class="mr32">
+                    <strong>To:</strong>
+                    <p t-esc="doc.date_end"/>
+                </div>
+            </div>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Reason 1</th>
+                        <th>Qty 1</th>
+                        <th>Reason 2</th>
+                        <th>Qty 2</th>
+                        <th>Reason 3</th>
+                        <th>Qty 3</th>
+                        <th>Reason 4</th>
+                        <th>Qty 4</th>
+                        <th >Total (h)</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody_payroll">
+                    <t t-foreach="doc.day_ids" t-as="day">
+                        <tr>
+                            <td>
+                                <strong t-field="day._dayofweek_letter"/><strong t-field="day.day"/>
+                            </td>
+                            <td><span t-if="day.reason_1 and not ((day.reason_1.att_type == 'extra') and (not day.pay_extra))" t-field="day.reason_1"/></td>
+                            <td><span t-if="day.reason_1 and not ((day.reason_1.att_type == 'extra') and (not day.pay_extra))" t-field="day.qty_1" t-options='{"widget": "float_time"}'/></td>
+                            <td><span t-if="day.reason_2 and not ((day.reason_2.att_type == 'extra') and (not day.pay_extra))" t-field="day.reason_2"/></td>
+                            <td><span t-if="day.reason_2 and not ((day.reason_2.att_type == 'extra') and (not day.pay_extra))" t-field="day.qty_2" t-options='{"widget": "float_time"}'/></td>     
+                            <td><span t-if="day.reason_3 and not ((day.reason_3.att_type == 'extra') and (not day.pay_extra))" t-field="day.reason_3"/></td>
+                            <td><span t-if="day.reason_3 and not ((day.reason_3.att_type == 'extra') and (not day.pay_extra))" t-field="day.qty_3" t-options='{"widget": "float_time"}'/></td>     
+                            <td><span t-if="day.reason_4 and not ((day.reason_4.att_type == 'extra') and (not day.pay_extra))" t-field="day.reason_4"/></td>
+                            <td><span t-if="day.reason_4 and not ((day.reason_4.att_type == 'extra') and (not day.pay_extra))" t-field="day.qty_4" t-options='{"widget": "float_time"}'/></td>   
+                            <td><span t-field="day.total" t-options='{"widget": "float_time"}'/></td>  
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <t t-set="reason_ids" t-value="doc.reason_ids.with_context({'book_id': doc.id})"/>
+            <t t-set="__" t-value="reason_ids._compute_qty()"/>
+
+            <table class="payroll_totals" style="float:left">
+                <thead>
+                    <tr>
+                        <th>Cod.</th>
+                        <th>Causale</th>
+                        <th>Totale Ore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="reason_ids.with_context({'book_id': doc.id})" t-as="reason">
+                        <tr>
+                            <td>
+                                <span t-field="reason.code"/>
+                            </td>
+                            <td>
+                                <span t-field="reason.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="reason.quantity"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+
+            <table class="payroll_totals" style="float:right">
+                <col width="10%"/><col width="70%"/><col width="20%"/>
+
+                <thead>
+                    <tr>
+                        <th colspan="2">Gruppo</th>
+                        <th>Ore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            Ore Lavorate
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="sum(reason_ids.with_context({'book_id': doc.id}).filtered(lambda x: x.att_type in ['work', 'extra']).mapped('quantity'))"/>
+                        </td>
+                    </tr><tr>
+                        <td style="border-right:none;"/>
+                        <td colspan="1" >
+                            <i><strong>Di cui</strong> straordinarie</i>
+                        </td>
+                        <td class="text-right">
+                            <i><span t-esc="sum(reason_ids.with_context({'book_id': doc.id}).filtered(lambda x: x.att_type == 'extra').mapped('quantity'))"/></i>
+                        </td>
+                    </tr><tr>
+                        <td colspan="2">
+                            Totale Ferie
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="sum(reason_ids.with_context({'book_id': doc.id}).filtered(lambda x: x.att_type == 'hol').mapped('quantity'))"/>
+                        </td>
+                    </tr><tr>
+                        <td colspan="2">
+                            Totale Assenze <strong>NON FERIALI</strong>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="sum(reason_ids.with_context({'book_id': doc.id}).filtered(lambda x: x.att_type == 'absn').mapped('quantity'))"/>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3"/></tr>
+                    <tr>
+                        <td colspan="2">
+                            <strong>Gran Totale</strong>
+                        </td>
+                        <td class="text-right">
+                            <strong><span t-esc="sum(reason_ids.with_context({'book_id': doc.id}).mapped('quantity'))"/></strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!--
+            <div class="payroll_footnotes">
+                <h3>Resoconto Sessioni Lavorative del Dipendente</h3>
+                <p>Questi dati, considerati sensibili, sono di propietà di RDS Moulding Technology SpA (da qui "azienda"). Sono condivisi per gestione ai soli incaricati dall'azienda.</p>
+                <p>Chiunque entri in possesso di questi dati attraverso canali non leciti, intenzionalmente o meno, è tenuto a distruggerli ed informare dell'accaduto l'ufficio R.U. dell'azienda.</p>
+            </div><div class="payroll_footnotes">    
+                <h3>Note</h3>
+                <p>Le timbrature rilevate dallo strumento marcapresenze possono differire dagli intervalli di lavoro effettivamente validati dall'ufficio R.U.</p>
+                <p>Tale circostanza si verifica qualora il dipendente utilizzi lo strumento in maniera scorretta o quando non è autorizzato ad essere presente in azienda.</p>
+                <p>La azienda comunque non manomette nessuna registrazione dello strumento marcatempo, considerata documento ufficiale.</p>
+            </div>
+            -->
+
+            <div class="oe_structure"/>
+        </div>
+    </t>
+</template>
+
+
+
+<template id="report_attendancebook">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="hr_attendance_book.report_attendancebook_document"/>
+        </t>
+    </t>
+</template>
+
+<template id="gis_payroll_document"><t t-translation="off">
+<t t-foreach="docs" t-as="doc"><t t-foreach="doc.day_ids" t-as="day"><t t-if="day.reason_1 and not ((day.reason_1.att_type == 'extra') and (not day.pay_extra))"><t t-esc="day.reasonstring(1)"/><t t-if="day.reason_2 and not ((day.reason_2.att_type == 'extra') and (not day.pay_extra))">
+<t t-esc="day.reasonstring(2)"/><t t-if="day.reason_3 and not ((day.reason_3.att_type == 'extra') and (not day.pay_extra))">
+<t t-esc="day.reasonstring(3)"/><t t-if="day.reason_4 and not ((day.reason_4.att_type == 'extra') and (not day.pay_extra))">
+<t t-esc="day.reasonstring(4)"/></t></t></t></t></t></t></t>
+</template>
+
+        <report id="gis_payroll"
+            model="hr.attendance.book"
+            string="Tracciato Paghe GIS"
+            name="hr_attendance_book.gis_payroll_document"
+            file="hr_attendance_book.gis_payroll_document"
+            report_type="qweb-text"
+        />
+
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="mrp_cost_structure" inherit_id="mrp_account_enterprise.mrp_cost_structure">
+            <xpath expr="//span[@t-esc='opcost']/../.." position="replace">
+                    <tr t-if="line['costs_deferred']">
+                        <td colspan="4" class="text-right">
+                            <strong>Costs deferred to other productions</strong>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="line['costs_deferred']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </td>
+                        <t t-set="opcost" t-value="opcost + line['costs_deferred']"/>
+                    </tr>
+            
+                    <tr>
+                        <td colspan="4" class="text-right">
+                            <strong>Total Cost of Operations</strong>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="opcost" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                        </td>
+                    </tr>
+            </xpath>
+
+            <xpath expr='(//tr)[11]' position="before">
+                <tr t-if="line['costs_absorbed']">
+                    <td class="text-right">
+                        <strong>Operations costs absorbed from other productions</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-esc="line['costs_absorbed']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                    </td>
+                    <t t-set="opcost" t-value="opcost + line['costs_absorbed']"/>
+                </tr>               
+            </xpath>
+      </template>
+
+
+      <template id="report_mrp_bom_line" inherit_id="mrp.report_mrp_bom_line">
+        <xpath expr='(//tr)[2]/..' position="after">
+            <t t-if="data['deferrable_costs']">
+            <t t-set="space_td" t-value="'margin-left: '+ str(data['level'] * 20) + 'px;'"/>
+            <tr class="o_mrp_bom_report_line o_mrp_bom_cost" t-att-data-id="'deferrablecosts-' + str(data['bom'].id)" t-att-data-bom-id="data['bom'].id" t-att-parent_id="data['bom'].id" t-att-data-qty="data['bom_qty']" t-att-data-level="data['level']">
+                <td name="td_opr">
+                <span t-att-style="space_td"/>
+                    Costs deferred to other products
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td class="o_mrp_bom_cost text-right">
+                    <span t-esc="data['deferrable_costs']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                </td>
+                <td/>
+            </tr>
+            </t>
+            <t t-if="data['absorbable_costs']">
+            <t t-set="space_td" t-value="'margin-left: '+ str(data['level'] * 20) + 'px;'"/>
+            <tr class="o_mrp_bom_report_line o_mrp_bom_cost" t-att-data-id="'absorbablecosts-' + str(data['bom'].id)" t-att-data-bom-id="data['bom'].id" t-att-parent_id="data['bom'].id" t-att-data-qty="data['bom_qty']" t-att-data-level="data['level']">
+                <td name="td_opr">
+                <span t-att-style="space_td"/>
+                    Costs absorbed from other products
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td class="o_mrp_bom_cost text-right">
+                    <span t-esc="data['absorbable_costs']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                </td>
+                <td/>
+            </tr>
+            </t>              
+        </xpath>
+        
+    </template>
+
+    </data>
+</odoo>

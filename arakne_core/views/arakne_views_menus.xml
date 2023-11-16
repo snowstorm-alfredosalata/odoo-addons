@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_arakne_root"
+        name="Arakne IoT"
+        groups="base.group_user"
+        web_icon="arakne_core,static/description/icon.png"
+        sequence="150"/>
+</odoo>

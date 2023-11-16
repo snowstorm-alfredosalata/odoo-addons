@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mrp_mgr_productivity_loss,rule.mrp.mgr.productivity.loss,mrp.model_mrp_workcenter_productivity_loss,mrp.group_mrp_manager,1,1,1,1
+mrp_mgr_productivity_loss_type,rule.mrp.mgr.productivity.loss.type,mrp.model_mrp_workcenter_productivity_loss_type,mrp.group_mrp_manager,1,1,1,1
+usr_kontrol_andon,rule.usr.andon,odoo_kontrol.model_mrp_andon,mrp.group_mrp_manager,1,1,1,1
+usr_productivity_timestamp,rule.productivity.log.timestamp,odoo_kontrol.model_mrp_workcenter_productivity_timestamp,base.group_user,1,1,1,1

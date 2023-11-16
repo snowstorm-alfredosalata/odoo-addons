@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!--  Change Product Quantity -->
+        <record id="view_launch_next_workorder_form" model="ir.ui.view">
+            <field name="name">Launch next Workorder</field>
+            <field name="model">next.workorder.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Launch next Workorder">
+                    <p>
+                        Do you wish to launch the next workorder immediately?
+                    </p>
+                    <group>
+                        <field name="next_workorder_id" domain="[('workcenter_id', '=', workcenter_id),('state', 'in', ['pending', 'ready'])]"/>
+                        <field name="workcenter_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="launch" string="Approve"
+                            colspan="1" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>    

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo> 
+
+    <act_window 
+    id="action_view_shifts" 
+    name="Shifts" 
+    res_model="hr.shift"
+    context="{'search_default_group_by_state' : True, 'search_default_active': True}"
+    />
+
+    <menuitem
+        id="menu_shifts"
+        name="Shifts"
+        action="action_view_shifts" 
+        parent="hr.menu_human_resources_configuration"
+        sequence="8"/>
+
+
+    <record id="shift_view_tree" model="ir.ui.view"> 
+        <field name="name">shift.list</field> 
+        <field name="model">hr.shift</field> 
+        <field name="arch" type="xml"> 
+            <tree>
+                <field name="name"/>
+            </tree> 
+        </field> 
+    </record>
+
+    <record id="shift_view_form" model="ir.ui.view"> 
+        <field name="name">shift.form</field> 
+        <field name="model">hr.shift</field> 
+        <field name="arch" type="xml"> 
+            <form string="Shift">
+                <header>
+                    <button name="action_shift" type="object" string="Shift Now"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_see_employees" type="object" icon="fa-users">
+                            <field string="Employees" name="employee_count" widget="statinfo"/>
+                        </button>
+                    </div>     
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Shift name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="department_id" />
+                        </group>
+                        <group>
+                            <field name="date" />
+                            <label for="interval"/>
+                            <div name="interval">
+                                Shift every <field name="interval" class="oe_inline"/> days.
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="bottom" decoration-info="current">
+                                <field name="shift_id" invisible="1" />
+                                <field name="sequence" widget="handle" />
+                                <field name="name" />
+                                <field name="current" readonly="1" />
+                                <button name="toggle" type="object" attrs="{'invisible': [('current', '=', True)]}" icon="fa-bookmark" aria-label="Set Current" title="Set Current"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_form_shifts" model="ir.ui.view">
+        <field name="name">employee.form.shifts</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="0"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                <field name="shift_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_filter_groupby_shift" model="ir.ui.view">
+        <field name="name">employee.filter.groupby.shift</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="priority" eval="2000"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <filter name="does_shift" string="Shift Worker" domain="[('shift_id','!=',False)]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//filter[@name='group_job']" position="after">
+                <filter name="group_schedule" string="Schedule" domain="[]" context="{'group_by':'resource_calendar_id'}"/>
+                <filter name="group_shift" string="Shift" domain="[]" context="{'group_by':'shift_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

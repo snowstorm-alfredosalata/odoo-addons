@@ -1,0 +1,5 @@
+.o_image {
+    &[data-mimetype^='special_cloud_folder'] {
+        background-image: url('/cloud_base/static/src/img/folder.svg');
+    }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_hr_book_generation" model="ir.ui.view">
+            <field name="name">Generate Attendance Book</field>
+            <field name="model">hr.attendance.book.generate</field>
+            <field name="arch" type="xml">
+                <form string="Emit RiBas">
+                    <field name="state" invisible="1"/>
+                    <div class="alert alert-success" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('book_ids', '=', [])]}" role="status">
+                        <group>
+                            <h3>
+                                The following workbooks were generated.
+                            </h3>
+                        </group>
+                        <group>
+                            <field name="book_ids" colspan="4" nolabel="1">
+                                <tree>
+                                    <field name="year" />
+                                    <field name="month"/>
+                                    <field name="employee_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </div>
+                    <group class="alert alert-info" role="status" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('book_ids', '!=', [])]}">
+                        <h3 colspan="4">
+                            No workbooks were generated.
+                        </h3><p colspan="4">
+                            The procedure has not found any missing workbook. Please double-check and ask your systemadmin for help if needed.
+                        </p>
+                    </group>
+
+                    <p attrs="{'invisible': ['|', ('state', '=', 'done')]}" class="oe_grey">
+                        This wizard will look for missing workbooks and generate them.
+                    </p>
+                    <h3 attrs="{'invisible': ['|', ('state', '=', 'done')]}">
+                        Click "Generate" to start.
+                    </h3>
+                    <footer>
+                        <button attrs="{'invisible': [('state', '=', 'done')]}" name="generate" string="Generate" type="object" class="btn-primary"/>
+                        <button string="View Generated" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('book_ids', '=', [])]}" class="btn-primary" name="view_generated" type="object"/>
+                        <button string="Cancel" attrs="{'invisible': [('state', '=', 'done')]}" class="btn-secondary" special="cancel"/>
+                        <button string="Close" attrs="{'invisible': [('state', '!=', 'done')]}" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_hr_book_generation" model="ir.actions.act_window">
+            <field name="name">Generate Attendance Books</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.attendance.book.generate</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+        id="menu_attendance_book_generate"
+        name="Generate Attendance Books"
+        action="action_view_hr_book_generation" 
+        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        sequence="0"/>
+
+
+</odoo>

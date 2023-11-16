@@ -1,0 +1,14 @@
+<odoo>        
+        <record id="mrp.category_availability" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Availability</field>
+        </record>
+        <record id="mrp.category_performance" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Performance</field>
+        </record>
+        <record id="mrp.category_quality" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Quality</field>
+        </record>
+        <record id="mrp.category_productive" model="mrp.workcenter.productivity.loss.type">
+            <field name="name">Productive</field>
+        </record>
+</odoo>

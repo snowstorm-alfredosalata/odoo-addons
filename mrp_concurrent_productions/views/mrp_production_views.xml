@@ -1,0 +1,22 @@
+<odoo>
+    <record model="ir.ui.view" id="mrp_production_child_productions">
+        <field name="name">mrp.production.child.productions</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='routing_id']" position="after">
+                <field name="child_bom_ids" widget="many2many_tags" attrs="{'invisible': [('child_bom_ids', '=', [])]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="parent_id" invisible="1"/>
+                <button name="action_view_children" type="object" attrs="{'invisible': [('child_count', '=', 0)]}" class="oe_stat_button" icon="fa-wrench">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="child_count" widget="statinfo" nolabel="1"/></span>
+                        <span class="o_stat_text">Child Orders</span>
+                    </div>
+                </button>
+                <button name="action_view_parent" type="object" attrs="{'invisible': [('parent_id', '=', False)]}" icon="fa-wrench" string="Parent Order" class="oe_stat_button"/>
+            </xpath>     
+        </field>
+    </record>
+</odoo>

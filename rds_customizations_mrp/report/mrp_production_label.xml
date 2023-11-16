@@ -1,0 +1,302 @@
+<odoo>
+    <data>
+        <record id="paperformat_nomargins" model="report.paperformat">
+            <field name="name">A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report 
+            id="action_report_product_label_picking"
+            string="DO/CO/O0 Etichetta Segnacolli"
+            model="stock.picking" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_picking" 
+            name="rds_customizations_mrp.rds_report_product_label_picking"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+        <report 
+            id="action_report_product_label"
+            string="DO/CO/O0 Etichetta Segnacolli"
+            model="product.product" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label" 
+            name="rds_customizations_mrp.rds_report_product_label"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+        <report 
+            id="action_report_product_template_label"
+            string="DO/CO/O0 Etichetta Segnacolli"
+            model="product.template" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label" 
+            name="rds_customizations_mrp.rds_report_product_label"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+       <report 
+            id="action_report_product_label_mo"
+            string="DO/CO/O0 Eti. Segnacolli - CONFORME"
+            model="mrp.production" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_mo" 
+            name="rds_customizations_mrp.rds_report_product_label_mo"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+       <report 
+            id="action_report_product_label_mo_nc"
+            string="DO/CO/O0 Eti. Segnacolli - NON CONFORME"
+            model="mrp.production" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_mo_nc" 
+            name="rds_customizations_mrp.rds_report_product_label_mo_nc"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+        <report 
+            id="action_report_product_label_mo_wc"
+            string="DO/CO/O0 Eti. Segnacolli - IN ATT. DI CONTROLLO"
+            model="mrp.production" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_mo_wc" 
+            name="rds_customizations_mrp.rds_report_product_label_mo_wc"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+       <report 
+            id="action_report_product_label_wo"
+            string="DO/CO/O0 Eti. Segnacolli - CONFORME"
+            model="mrp.workorder" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_wo" 
+            name="rds_customizations_mrp.rds_report_product_label_wo"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+       <report 
+            id="action_report_product_label_wo_nc"
+            string="DO/CO/O0 Eti. Segnacolli - NON CONFORME"
+            model="mrp.workorder" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_wo_nc" 
+            name="rds_customizations_mrp.rds_report_product_label_wo_nc"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+        <report 
+            id="action_report_product_label_wo_wc"
+            string="DO/CO/O0 Eti. Segnacolli - IN ATT. DI CONTROLLO"
+            model="mrp.workorder" 
+            report_type="qweb-pdf"
+            file="rds_customizations_mrp.rds_report_product_label_wo_wc" 
+            name="rds_customizations_mrp.rds_report_product_label_wo_wc"
+            print_report_name="'DO/CO/00 - %s' % (object.name)"
+            paperformat="rds_customizations_mrp.paperformat_nomargins"/>
+
+        <!-- Main template -->
+        <template id="rds_product_label_single">
+                <table class="rds_move_label" style="table-layout: fixed;width: 100%;border-collapse: collapse;">
+                    <tr style="height: 80px;">
+                        <td style="font-size: 90px;text-align: center;vertical-align:middle;font-weight:800;" colspan="6">
+                            <h1><span t-esc="header_label"/></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;text-align: center;padding-top:25px;" colspan="3" ><span class="cell_label">CODICE PRODOTTO</span><img t-if="product.default_code" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', product.default_code, 800, 100)" style="max-height:50px;"/><br/><span  style="padding: 2px;font-size: 21px;width:100%;text-align:center;" t-esc="product.default_code"/></td>
+                        <td style="text-align:center;vertical-align: middle" colspan="3" rowspan="3"><img t-if="product" t-att-src="'/web/image?model=product.product&amp;id=%s&amp;field=image_1920' % product.id" style="max-width:100%;max-height:320px;filter: grayscale(100%);"/></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 15px;vertical-align: top;text-align: center;padding-top:25px;" colspan="2"><span class="cell_label">RIFERIMENTO ORDINE</span><img t-if="doc" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Standard39', doc.name, 800, 150)" style="max-width:100%;max-height:50px;"/><br/><span t-if="doc" style="padding: 2px;font-size: 22px;width:100%;text-align:center;" t-esc="doc.name"/></td>
+                        <td colspan="1"><span class="cell_label">QUANTITA'</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:24px;" colspan="3"><span class="cell_label">DESCRIZIONE</span><span style="font-size: 20px;" t-esc="product.display_name"/></td>
+                    </tr>
+                    <tr style="height: 70px;">
+                        <td style="font-size: 40px;" colspan="3"><span class="cell_label">NOME E COGN. CONT. QUALITA' - DATA E ORA</span></td>
+                        <td style="font-size: 40px;" colspan="3"><span class="cell_label">NOME E COGN. OPERATORE CON DATA E ORA</span></td>
+                    </tr>
+                    <tr style="height: 140px;">
+                        <td style="padding-top:24px;" colspan="6"><span class="cell_label">NOTE</span>
+                            <span style="font-size: 14px;" t-if="wo" t-esc="wo.note"/>
+                            <span class="cell_label_rb">DO/CO/OO - REV.01 20/03/19</span>
+                        </td>
+                    </tr>
+                </table>
+        </template>
+
+        <template id="rds_product_labels">
+                <style>
+                    .rds_move_label, .rds_move_label td {
+                        page-break-inside: avoid;
+                        border: 1mm solid black;
+                        font-size: 20px;
+                        padding: 2px;
+                        position: relative;
+                        font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+                    }
+                    .rds_move_label tr {
+                        height: 100px;
+                    }
+                    .rds_move_label .cell_label {
+                        position: absolute;
+                        top: 2px;
+                        left: 2px;
+                        font-size: 15px;
+                        }
+                    .rds_move_label .cell_label_rb {
+                        position: absolute;
+                        bottom: 2px;
+                        right: 2px;
+                        font-size: 15px;
+                        }
+                    .rds_move_label .forcecenter {
+                        text-align: center;
+                        vertical-align: middle;
+                        font-size:30px;
+                    }
+                    .rds_move_label .spacersm {
+                        min-height: 70px;
+                    }
+                    .rds_move_label .spacermd {
+                        min-height: 110px;
+                    }
+                    .rds_move_label .spacerbg {
+                        min-height: 150px;
+                    }
+                </style>
+
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <t t-call="rds_customizations_mrp.rds_product_label_single"/>
+                    <div class="row clearfix mt32 mb32"/>
+                    <t t-call="rds_customizations_mrp.rds_product_label_single"/>
+                </div>
+        </template>
+        
+        <!-- Main template -->
+        <template id="rds_report_product_label">
+            <t t-set="header_label" t-value="'CONFORME'"/>
+            <t t-call="web.basic_layout">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-set="doc" t-value="False"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="rds_report_product_label_picking">
+            <t t-set="header_label" t-value="'CONFORME'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="pick">
+                        <t t-foreach="pick.move_lines.mapped('product_id')" t-as="product">
+                            <t t-set="doc" t-value="pick"/>
+                            <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Manuf. / Products Orders -->
+
+        <template id="rds_report_product_label_mo">
+            <t t-set="header_label" t-value="'CONFORME'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="mo">
+                        <t t-set="doc" t-value="mo"/>
+                        <t t-set="product" t-value="mo.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+       <template id="rds_report_product_label_mo_nc">
+            <t t-set="header_label" t-value="'NON CONFORME'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="mo">
+                        <t t-set="doc" t-value="mo"/>
+                        <t t-set="product" t-value="mo.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+       <template id="rds_report_product_label_mo_wc">
+            <t t-set="header_label" t-value="'IN ATTESA DI CONTROLLO'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="mo">
+                        <t t-set="doc" t-value="mo"/>
+                        <t t-set="product" t-value="mo.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- WO Orders -->
+
+        <template id="rds_report_product_label_wo">
+            <t t-set="header_label" t-value="'CONFORME'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="wo">
+                        <t t-set="doc" t-value="wo.production_id"/>
+                        <t t-set="product" t-value="doc.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+       <template id="rds_report_product_label_wo_nc">
+            <t t-set="header_label" t-value="'NON CONFORME'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="wo">
+                        <t t-set="doc" t-value="wo.production_id"/>
+                        <t t-set="product" t-value="doc.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+       <template id="rds_report_product_label_wo_wc">
+            <t t-set="header_label" t-value="'IN ATTESA DI CONTROLLO'"/>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="wo">
+                        <t t-set="doc" t-value="wo.production_id"/>
+                        <t t-set="product" t-value="doc.product_id"/>
+                        <t t-call="rds_customizations_mrp.rds_product_labels"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+
+	</data>
+</odoo>

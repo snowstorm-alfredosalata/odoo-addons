@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="view_zebra_printer_tree" model="ir.ui.view">
+        <field name="name">zpl.printer.tree</field>
+        <field name="model">zpl.printer</field>
+        <field name="arch" type="xml">
+            <tree string="Stampanti ZEBRA" editable="bottom">
+                <field name="name" />
+                <field name="server_address" />
+                <field name="printer_id" />
+                <field name="size_code" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_zebra_format_tree" model="ir.ui.view">
+        <field name="name">zpl.format.tree</field>
+        <field name="model">zpl.format</field>
+        <field name="arch" type="xml">
+            <tree string="Formati ZEBRA">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_zebra_format_form" model="ir.ui.view">
+        <field name="name">zpl.format.form</field>
+        <field name="model">zpl.format</field>
+        <field name="arch" type="xml">
+            <form string="Formato Zebra">
+               <sheet string="Formato Zebra">
+                    <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="type"/>
+                    </group>
+                    <notebook>
+                        <page string="Corpo del Formato">
+                            <field name="body" widget="ace" nolabel="1"/>
+                        </page>
+                        <page string="Variabili">
+                            <field name="variable_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="key"/>
+                                    <field name="field_type"/>
+                                    <field name="default_value" attrs="{'readonly':  [('field_type','=','reference')]}"/>
+                                    <field name="ref_model" attrs="{'readonly':  [('field_type','!=','reference')], 'required': [('field_type','=','reference')]}"/>
+                                    <field name="default_ref" attrs="{'readonly':  [('field_type','!=','reference')]}"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="key"/>
+                                        <field name="field_type"/>
+                                        <field name="default_value" attrs="{'readonly':  [('field_type','=','reference')]}"/>
+                                        <field name="ref_model" attrs="{'readonly':  [('field_type','!=','reference')], 'required': [('field_type','=','reference')]}"/>
+                                        <field name="default_ref" attrs="{'readonly':  [('field_type','!=','reference')]}"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Campi Tecnici">
+                            <group>
+                                <field name="size_code" />
+                                <field name="fallback_formats"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_zebra_format_tree" model="ir.actions.act_window">
+        <field name="name">Formati di Stampa Zebra</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">zpl.format</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Definisci dei formati di stampa per produrre delle etichette.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_zebra_printers_tree" model="ir.actions.act_window">
+        <field name="name">Stampanti Zebra</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">zpl.printer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Definisci delle stampanti di rete compatibili con il linguaggio ZPL per produrre delle etichette.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_zebra_labeler" groups="stock.group_stock_user" name="Etichettatrici ZPL" sequence="36"
+        web_icon="zpl_labels_mgmt,static/description/icon.png"/>
+
+    <menuitem parent="menu_zebra_labeler" id="menu_zebra_labeler_format_tree" groups="stock.group_stock_user" name="Formati di Stampa" sequence="1" action="action_zebra_format_tree"/>
+    <menuitem parent="menu_zebra_labeler" id="menu_zebra_labeler_printers" groups="stock.group_stock_user" name="Stampanti" sequence="2" action="action_zebra_printers_tree"/>
+
+    </data>
+</odoo>

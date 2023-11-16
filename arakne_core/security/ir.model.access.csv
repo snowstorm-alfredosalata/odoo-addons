@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+base_user_arakne_daemon,rule.base.user.arakne.daemon,model_arakne_daemon,base.group_user,1,0,0,0
+base_user_arakne_device,rule.base.user.arakne.device,model_arakne_device,base.group_user,1,0,0,0
+base_user_arakne_device_model,rule.base.user.arakne.device.model,model_arakne_device_model,base.group_user,1,0,0,0
+arakne_manager_arakne_daemon,rule.arakne.manager.arakne.daemon,model_arakne_daemon,group_arakne_manager,1,1,1,1
+arakne_manager_arakne_device,rule.arakne.manager.arakne.device,model_arakne_device,group_arakne_manager,1,1,1,1
+arakne_manager_arakne_device_model,rule.arakne.manager.arakne.device.model,model_arakne_device_model,group_arakne_manager,1,1,1,1

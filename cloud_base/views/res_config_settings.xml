@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.cloud.base</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block"
+                     data-string="Cloud Storages"
+                     string="Cloud Storages"
+                     data-key="cloud_base"
+                     name="cloud_base"
+                >
+                    <div class="row mt16 o_settings_container">
+                        <button name="action_sync_to"
+                                string="Sync"
+                                type="object"
+                                class="oe_highlight"
+                                style="margin-left:5px"
+                                attrs="{'invisible': [('cloud_client_state', '!=', 'confirmed')]}"
+                        />
+                        <button name="action_sync_from"
+                                string="Backward Sync"
+                                type="object"
+                                class="oe_highlight"
+                                style="margin-left:5px"
+                                attrs="{'invisible': [('cloud_client_state', '!=', 'confirmed')]}"
+                        />
+                        <button name="%(cloud_base.sync_log_action)d"
+                                type="action"
+                                attrs="{'invisible': [
+                                    '|', ('cloud_client_state', '!=', 'confirmed'), ('sync_logs', '!=', True)
+                                ]}"
+                                style="margin-left:5px"
+                                string="Sync Logs"
+                        />
+                        <button name="action_reset"
+                                type="object"
+                                attrs="{'invisible': [('cloud_client_state', '=', 'draft')]}"
+                                class="oe_link"
+                                confirm="Are you sure? You would not be able to recover that: all files should be then
+                                synced from scratch, while already synced files remain 'url' type"
+                                style="margin-left:5px"
+                                string="Reset"
+                        />
+                        <button name="cancel"
+                                type="object"
+                                string="Cancel"
+                                class="oe_link"
+                        />
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <group name="client_specific">
+                                <field name="cloud_client_state" readonly="1"/>
+                            </group>
+                            <group name="cloud_options" string="Options">
+                                <field name="sync_logs"/>
+                            </group>
+                            <group string="Odoo models to sync"/>
+                            <field name="synced_model_ids"/>
+                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <group string="Settings"/>
+                            <div name="docu_website_2">
+                                <label for="cloud_timeout"/>
+                                <div name="timeout_hints" class="text-muted">
+<p>Enter here your Odoo server timeout assumed for the synchronization cron jobs.</p>
+<p>It should be defined as the minimum of LIMIT_TIME_CPU, LIMIT_TIME_REAL, LIMIT_TIME_REAL_CRON from your Odoo 
+configuration file. For Odoo.sh it should be always 900 seconds.</p>
+<p></p>
+                                </div>
+                                <field name="cloud_timeout"/>
+                                <div name="timeout_hints_2 mt16" class="text-muted">
+<p>Based on that timeout you should apply the following configuration for the scheduled jobs (in the debug mode go to
+the Settings > Technical > Automation > Scheduled Jobs):</p>
+<ul>
+<li>Set up the job 'Synchronize attachments with cloud' as (a) frequency - 2*timeout; (b) the next execution as
+the next hour +timeout. For example, for 900seconds timeout: frequency - as 30minutes; the next execution -
+at 08:15</li>
+<li>Set up the job 'Synchronize attachments from cloud' as (a) frequency - 2*timeout; (b) the next execution as
+the next hour + timeout*2. For example, for 900seconds timeout: frequency - as 30minutes; the next execution
+- at 08:30</li>        
+</ul>
+                                </div>                            
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="cloud_config_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'cloud_base'}</field>
+    </record>
+
+
+</odoo>

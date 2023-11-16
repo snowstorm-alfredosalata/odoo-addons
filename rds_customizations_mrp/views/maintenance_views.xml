@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="equipment_form_rd_view" model="ir.ui.view">
+            <field name="name">equipment.form.rds</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_ref" position="after">
+                    <br/>
+                    <field name="owner_id"/>
+                    <field name="owner_ref"/>
+                    <br/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="act_mrp_view_andons">
+        <field name="name">Andons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.andon</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+        <p>
+            No Andons defined.
+        </p>
+        </field>
+    </record>
+
+    <menuitem id="mrp_view_andons_config"
+            sequence="20"
+            action="act_mrp_view_andons"
+            name="Andons"
+            parent="mrp.menu_mrp_configuration"/>
+
+    <menuitem id="mrp_open_andons"
+            sequence="20"
+            name="Andons"
+            parent="mrp.menu_mrp_reporting"/>
+
+    <record model="ir.ui.view" id="mrp_andon_tree">
+        <field name="name">mrp.andon.tree</field>
+        <field name="model">mrp.andon</field>
+        <field name="arch" type="xml">
+            <tree string="Andon">
+                <field name="name"/>
+                <field name="workcenter_ids" widget="many2many_tags"/>
+                <field name="published"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="mrp_andon_tree">
+        <field name="name">mrp.andon.tree</field>
+        <field name="model">mrp.andon</field>
+        <field name="arch" type="xml">
+            <tree string="Andon">
+                <field name="name"/>
+                <field name="workcenter_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+        <record model="ir.ui.view" id="view_mrp_andon_form">
+            <field name="name">mrp.andon.form</field>
+            <field name="model">mrp.andon</field>
+            <field name="arch" type="xml">
+                <form string="Andon">
+                    <header>
+                        <button name="btn_update_andon" type="object" string="Update Andon Action" />
+                        <button name="btn_show_andon" type="object" string="Show Andon" />           
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="btn_activate" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="published" widget="boolean_button"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                          <h1>
+                              <field name="name" placeholder="Andon Name..."/>
+                          </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="workcenter_ids" widget="many2many_tags"/>
+                                <field name="fullscreen"/>
+                                <field name="tag"/>
+                                <br/>
+                                <field name="context" widget="ace" options="{'mode': 'python'}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+</odoo>

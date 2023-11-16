@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="mrp_bom_child_boms">
+        <field name="name">mrp.bom.child_boms</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="consumption" position="after">
+                <field name="standard_batch_size"/>
+                <field name="subcontracted_materials"/>
+                <field name="processing_cost"/>
+            </field>
+        </field>
+    </record>
+</odoo>
